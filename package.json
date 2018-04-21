@@ -3,10 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "airmnb-react-components": "0.0.3",
+    "airmnb-react-components": "0.0.4",
+    "history": "^4.7.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4"
+    "react-redux": "^5.0.7",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-observable": "^0.18.0",
+    "rxjs": "^5.5.10"
   },
   "scripts": {
     "start": "react-scripts start",
