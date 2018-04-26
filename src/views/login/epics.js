@@ -6,12 +6,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
-export const loginUserEpic = (action$) =>
+export const loginUserEpic = (action$, store, deps) =>
     action$
     .ofType(LOGIN_USER)
     .switchMap(() => {
-        debugger
-        return Observable.ajax.getJSON('https://virtserver.swaggerhub.com/airmnb/api/1.0.0/stat')
+        return deps.ajax.getJSON('https://virtserver.swaggerhub.com/airmnb/api/1.0.0/stat')
         .catch(err => {return Observable.of(loginUserFailed(err))})
         .map(loginUserFulfilled);
     })

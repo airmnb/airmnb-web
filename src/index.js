@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route } from 'react-router';
-import store, {history} from './store';
+import { Route } from 'react-router';
+import {history, configureStore} from './store';
 import { ConnectedRouter, push } from 'react-router-redux'
 import registerServiceWorker from './registerServiceWorker';
 import Login from './views/login/component';
 
-
+const store = configureStore();
 store.dispatch(push('/login'))
 
 
