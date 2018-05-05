@@ -1,9 +1,31 @@
-import React, {Component} from 'react';
-import { Input, Button } from 'airmnb-react-components';
+import React, { Component } from 'react';
+import { Input, Button } from '../../elements';
 import { loginUser } from './actions';
+import { fetchUser } from '../user/actions';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+const Container = styled.div`
+    margin: auto;
+    max-width: 500px;
+    margin-top: 100px;
+    padding: 20px;
+`;
+
+const Title = styled.h1`
+    font-weight: 900;
+    font-size: 50px;
+    text-transform: uppercase;
+    margin: 0;
+`;
+
 
 class Login extends Component {
+
+    componentWillMount() {
+        this.props.fetchUser();
+    }
 
     loginUser() {
         this.props.login({
@@ -13,22 +35,28 @@ class Login extends Component {
     }
 
     render() {
-        const {loading} = this.props
+        const { loading } = this.props
         return (
-            <div>
+            <Container>
+                <Title>Login</Title>
                 {loading && <span>loading</span>}
-                <Input type="text" innerRef={u => this.username = u } />
-                <Input type='text' innerRef={p => this.password = p } />
+                <Input placeholder="Username" type="text" name="username" innerRef={u => this.username = u} />
+                <Input placeholder="Password" type='password' name="password" innerRef={p => this.password = p} />
                 <Button onClick={() => this.loginUser()}>Submit</Button>
-            </div>
+                <div>
+                    Or {' '}
+                    <Link to="signup">Signup</Link>
+                </div>
+            </Container>
         )
     }
 }
 
-const mapState = ({login}) => login
+const mapState = ({ login }) => login
 
 const mapDispatch = (dispatch) => ({
-    login: (payload) => dispatch(loginUser(payload))
+    login: (payload) => dispatch(loginUser(payload)),
+    fetchUser: () => dispatch(fetchUser())
 });
 
 export default connect(mapState, mapDispatch)(Login);
