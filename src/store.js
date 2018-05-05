@@ -1,19 +1,24 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
-import login from './views/login/reducer';
+import loginReducer from './views/login/reducer';
+import authReducer from './views/authentication/reducer';
+import userReducer from './views/user/reducer';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { loginUserEpic } from './views/login/epics';
+import { fetchUserEpic } from './views/user/epics';
 import createHistory from 'history/createBrowserHistory'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 
 // dependencies
-import { ajax } from 'rxjs/add/observable/dom/ajax'
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/dom/ajax'
 
 // Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
 
 export const configureStore = (deps = {}) => {
     const rootEpic = combineEpics(
-        loginUserEpic
+        loginUserEpic,
+        fetchUserEpic
     )
     
     // plugin redux debugging tool
@@ -23,14 +28,16 @@ export const configureStore = (deps = {}) => {
     const routerMW = routerMiddleware(history)
     const epicMW = createEpicMiddleware(rootEpic, {
         dependencies: {
-            ajax,
+            ajax: Observable.ajax,
             ...deps
         }
     });
     
     const reducers = combineReducers({
-        login,
-        router: routerReducer
+        auth: authReducer,
+        router: routerReducer,
+        login: loginReducer,
+        user: userReducer
     });
 
     return createStore(reducers, composeEnhancer(applyMiddleware(epicMW, routerMW)));
