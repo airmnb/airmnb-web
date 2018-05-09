@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Input, Button } from '../../elements';
-import { loginUser } from './actions';
+import { Input, Button, Logo } from '../../elements';
+import { loginNativeUser, loginGoogleUser } from './actions';
 import { fetchUser } from '../user/actions';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -27,22 +27,31 @@ class Login extends Component {
         this.props.fetchUser();
     }
 
-    loginUser() {
-        this.props.login({
-            username: this.username.value,
-            password: this.password.value
-        })
+    loginUser(provider) {
+        switch(provider) {
+            case 'google':
+                return this.props.loginGoogleUser()
+            default:
+                return this.props.loginNativeUser({
+                    username: this.username.value,
+                    password: this.password.value
+                });
+        }
     }
 
     render() {
         const { loading } = this.props
         return (
             <Container>
+                <div style={{textAlign: 'center', marginBottom: '100px'}}>
+                <Logo colored={true} />
+                </div>
                 <Title>Login</Title>
                 {loading && <span>loading</span>}
                 <Input placeholder="Username" type="text" name="username" innerRef={u => this.username = u} />
                 <Input placeholder="Password" type='password' name="password" innerRef={p => this.password = p} />
-                <Button onClick={() => this.loginUser()}>Submit</Button>
+                <Button onClick={() => this.loginUser('native')}>Submit</Button>
+                <Button onClick={() => this.loginUser('google')}>Login In With google</Button>
                 <div>
                     Or {' '}
                     <Link to="signup">Signup</Link>
@@ -55,7 +64,8 @@ class Login extends Component {
 const mapState = ({ login }) => login
 
 const mapDispatch = (dispatch) => ({
-    login: (payload) => dispatch(loginUser(payload)),
+    loginNativeUser: (payload) => dispatch(loginNativeUser(payload)),
+    loginGoogleUser: () => dispatch(loginGoogleUser()),
     fetchUser: () => dispatch(fetchUser())
 });
 

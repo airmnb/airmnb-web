@@ -1,7 +1,7 @@
 import * as actions from './actions';
 
 const initiaState = {
-    user: null,
+    data: null,
     loading: false,
     error: null
 }
@@ -18,7 +18,7 @@ export default (state = initiaState, action) => {
             return {
                 ...state,
                 loading: false,
-                user: action.payload
+                data: action.payload
             }
         case actions.FETCH_USER_FAILED:
             return {

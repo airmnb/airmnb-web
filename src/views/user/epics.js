@@ -1,7 +1,8 @@
 import { get } from '../../services/httpClient'
 import {getUser} from '../../linksRel';
 import {fetchUserfullfilled, fetchUserFailed, FETCH_USER} from './actions';
-import 'rxjs/add/operator/mergeMap'
+import 'rxjs/add/operator/mergeMap';
+import {Observable} from 'rxjs/Observable';
 
 export const fetchUserEpic = (action$, state, deps) => {
     return action$
@@ -9,7 +10,7 @@ export const fetchUserEpic = (action$, state, deps) => {
     .mergeMap(() =>{
         return get({url: getUser})
         .map(fetchUserfullfilled)
-        .catch(fetchUserFailed)
+        .catch(() => Observable.of(fetchUserFailed()))
     }
     )
 }

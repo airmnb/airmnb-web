@@ -1,5 +1,6 @@
 import config from './config';
 
-const constrcutHref = (path) => `${config.apiBase}${path}`;
+const constrcutUrl = (path) => `${config.apiBase}${path}`;
 
-export const getUser = constrcutHref('sys/whoami');
+export const getUser = constrcutUrl('sys/whoami');
+export const signin = constrcutUrl('api/signin');

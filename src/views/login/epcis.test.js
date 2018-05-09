@@ -1,12 +1,12 @@
-import { loginUser } from "./actions";
-import { loginUserEpic } from "./epics";
+import { loginNativeUser } from "./actions";
+import { loginNativeUserEpic } from "./epics";
 import { Observable } from 'rxjs';
 import { configureStore } from "../../store";
 
-describe('src/views/login/epcis', () => {
+fdescribe('src/views/login/epcis', () => {
     let action, deps, store;
     beforeEach(() => {
-        action = loginUser({ username: 'Mark', password: 'any' });
+        action = loginNativeUser({ username: 'Mark', password: 'any' });
     })
 
     describe('when user enters valid credentials', () => {

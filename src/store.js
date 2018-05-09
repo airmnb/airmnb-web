@@ -3,7 +3,7 @@ import loginReducer from './views/login/reducer';
 import authReducer from './views/authentication/reducer';
 import userReducer from './views/user/reducer';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
-import { loginUserEpic } from './views/login/epics';
+import { loginNativeUserEpic, loginGoogleUserEpic } from './views/login/epics';
 import { fetchUserEpic } from './views/user/epics';
 import createHistory from 'history/createBrowserHistory'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
@@ -17,7 +17,8 @@ export const history = createHistory()
 
 export const configureStore = (deps = {}) => {
     const rootEpic = combineEpics(
-        loginUserEpic,
+        loginNativeUserEpic,
+        loginGoogleUserEpic,
         fetchUserEpic
     )
     
