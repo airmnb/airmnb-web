@@ -1,0 +1,32 @@
+/* mainly primary-1 is used for backgrounds and borders
+    - border color to indicate focus state
+    - background in some places
+    - text color on top this background will be black
+*/
+.primary-1 {
+    background: #53c4c9;
+};
+
+/* mainly primary-2 the background color for all the primary buttons
+    with black font color
+*/
+
+.primary-2 {
+    background: #ffea6a
+};
+
+/* secondary-1 is used for
+    - Inpur borders
+    */
+.secondary-1 {
+    color: #999999; 
+}
+
+
+/* secondary-1 is used for
+    - secondary states like the secndary button next to the primary button comes with white text
+    - is the text color when the back is light background (white, light grey....etc)
+    */
+.secondary-2 {
+    color: #666666; 
+}
