@@ -1,3 +1,3 @@
 export default {
-    'apiBase': 'http://127.0.0.1:5000/'
+    'apiBase': 'http://localhost:5000/'
 }

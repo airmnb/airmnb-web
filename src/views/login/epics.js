@@ -20,9 +20,7 @@ export const loginNativeUserEpic = (action$, store, deps) =>
 export const loginGoogleUserEpic = (action$) => {
     return action$
     .ofType(a.LOGIN_GOOGLE_USER)
-    .switchMap(() => {
-        return get({url: signin, query: {use: 'google', 'session_id': localStorage.getItem('sessionId')}})        
-    })
+    .do(() => {window.location = `${signin}?use=google&session_id=${localStorage.getItem('sessionId')}`})
     .catch(err => Observable.of(a.loginGoogleUserFailed(err)))
     .map(a.loginGoogleUserFulfilled);
 }
