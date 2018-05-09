@@ -40,18 +40,18 @@ class Login extends Component {
     }
 
     render() {
-        const { loading } = this.props
+        const { login, user } = this.props
         return (
             <Container>
                 <div style={{textAlign: 'center', marginBottom: '100px'}}>
                 <Logo colored={true} />
                 </div>
                 <Title>Login</Title>
-                {loading && <span>loading</span>}
+                {login.loading && <span>loading</span>}
                 <Input placeholder="Username" type="text" name="username" innerRef={u => this.username = u} />
                 <Input placeholder="Password" type='password' name="password" innerRef={p => this.password = p} />
                 <Button onClick={() => this.loginUser('native')}>Submit</Button>
-                <Button onClick={() => this.loginUser('google')}>Login In With google</Button>
+                <Button disabled={user.loading} onClick={() => this.loginUser('google')}>{user.loading? 'loading...': 'Login In With google'}</Button>
                 <div>
                     Or {' '}
                     <Link to="signup">Signup</Link>
@@ -61,7 +61,7 @@ class Login extends Component {
     }
 }
 
-const mapState = ({ login }) => login
+const mapState = ({ login, user }) => ({ login, user })
 
 const mapDispatch = (dispatch) => ({
     loginNativeUser: (payload) => dispatch(loginNativeUser(payload)),

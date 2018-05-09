@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/dom/ajax'
 import 'rxjs/add/observable/empty'
 import 'rxjs/add/operator/do'
+import 'rxjs/add/observable/throw'
 import { store } from '../index';
 
 export const get = (opts) => {
@@ -40,7 +41,7 @@ export const get = (opts) => {
             }
         }
 
-        return Observable.empty();
+        return Observable.throw(err);
     });
 }
 
