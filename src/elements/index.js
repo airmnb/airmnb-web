@@ -1,3 +1,3 @@
 export {Input} from './Input';
-export {Button} from './Button';
+export {Button, GoggleBtn} from './Button';
 export {Logo} from './Logo';

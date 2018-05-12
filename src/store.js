@@ -11,6 +11,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux'
 // dependencies
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/dom/ajax'
+import { authCheckEpic } from './views/authentication/epics';
 
 // Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
@@ -19,7 +20,8 @@ export const configureStore = (deps = {}) => {
     const rootEpic = combineEpics(
         loginNativeUserEpic,
         loginGoogleUserEpic,
-        fetchUserEpic
+        fetchUserEpic,
+        authCheckEpic
     )
     
     // plugin redux debugging tool

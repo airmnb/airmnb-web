@@ -10,7 +10,7 @@ export const fetchUserEpic = (action$, state, deps) => {
     .mergeMap(() =>{
         return get({url: getUser})
         .map(fetchUserfullfilled)
-        .catch(() => Observable.of(fetchUserFailed()))
+        .catch(err => Observable.of(fetchUserFailed(err)))
     }
     )
 }

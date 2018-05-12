@@ -11,6 +11,7 @@ import PrivateRoute from './views/authentication/privateRoute';
 import { Home } from './views/home/component';
 import { ThemeProvider } from 'styled-components';
 import {theme} from './theme';
+import AppContainer from './views/AppContainer/component';
 
 
 export const store = configureStore();
@@ -20,12 +21,14 @@ store.dispatch(push('/login'))
 ReactDOM.render((
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <ConnectedRouter history={history}>
-                <Switch>
-                    <Route path="/login" component={Login} />
-                    <PrivateRoute exact path="/" component={Home} />
-                </Switch>
-            </ConnectedRouter>
+            <AppContainer>
+                <ConnectedRouter history={history}>
+                    <Switch>
+                        <Route path="/login" component={Login} />
+                        <PrivateRoute exact path="/home" component={Home} />
+                    </Switch>
+                </ConnectedRouter>
+            </AppContainer>
         </ThemeProvider>
     </Provider>
 ), document.getElementById('root'));
@@ -34,6 +37,10 @@ registerServiceWorker();
 injectGlobal`
     body {
         margin: 0;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'system-ui', serif;
+        color: #000;
+    }
+    .align-center{
+        text-align: center;
     }
 `

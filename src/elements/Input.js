@@ -6,13 +6,16 @@ export const Input = styled.input`
     margin: 8px 0;
     width: 100%;
     color: black;
-    border: 2px solid ${props => props.theme.secondary_1};
+    border: 1px solid black;
     height: 48px;
     font-size: 16px;
     box-sizing: border-box;
     border-radius: 5px;
-    transition: border-color 100ms linear;
+    transition: all 150ms linear;
+    background: white;
+    
     &:focus {
-        border: 2px solid ${props => props.theme.primary_1};
+        box-shadow: 0 0 10px rgba(255, 204, 0, .4);
+        // border: 1px solid ${props => props.theme.primary_1};
     }
 `;
