@@ -7,11 +7,13 @@ import { loginNativeUserEpic, loginGoogleUserEpic } from './views/login/epics';
 import { fetchUserEpic } from './views/user/epics';
 import createHistory from 'history/createBrowserHistory'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
+import signupReducer from './views/signup/reducer';
 
 // dependencies
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/dom/ajax'
 import { authCheckEpic } from './views/authentication/epics';
+import { signupNativeUserEpic, signupCheckUserEpic } from './views/signup/epcis';
 
 // Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
@@ -21,7 +23,9 @@ export const configureStore = (deps = {}) => {
         loginNativeUserEpic,
         loginGoogleUserEpic,
         fetchUserEpic,
-        authCheckEpic
+        authCheckEpic,
+        signupNativeUserEpic,
+        signupCheckUserEpic
     )
     
     // plugin redux debugging tool
@@ -40,7 +44,8 @@ export const configureStore = (deps = {}) => {
         auth: authReducer,
         router: routerReducer,
         login: loginReducer,
-        user: userReducer
+        user: userReducer,
+        signup: signupReducer
     });
 
     return createStore(reducers, composeEnhancer(applyMiddleware(epicMW, routerMW)));

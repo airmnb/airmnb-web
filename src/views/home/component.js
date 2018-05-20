@@ -1,13 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authLogout } from '../authentication/actions';
+import { Nav, Header, Logo } from '../../elements';
+import { Link } from 'react-router-dom'
 
 export class Home extends Component {
+    tabs = [
+        {
+            url: '/profile',
+            label: 'Profile'
+        },
+        {
+            url: '/tab2',
+            label: 'Tab2'
+        },
+        {
+            url: '/tab3',
+            label: 'Tab3'
+        }
+    ]
     componentWillMount() {
     }
 
     render() {
-        return <button onClick={this.props.logout}>Logout Here!</button>
+        return <div>
+            <Header>
+                {/* <Logo /> */}
+                <Nav tabs={this.tabs} />
+            </Header>
+        </div>
     }
 }
 

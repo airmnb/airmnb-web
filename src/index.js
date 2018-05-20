@@ -1,21 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { history, configureStore } from './store';
-import { ConnectedRouter, push } from 'react-router-redux'
+import { ConnectedRouter } from 'react-router-redux'
 import registerServiceWorker from './registerServiceWorker';
 import Login from './views/login/component';
+import Signup from './views/signup/component';
 import { injectGlobal } from 'styled-components';
-import PrivateRoute from './views/authentication/privateRoute';
 import { Home } from './views/home/component';
 import { ThemeProvider } from 'styled-components';
-import {theme} from './theme';
+import { theme } from './styles/theme';
 import AppContainer from './views/AppContainer/component';
 
 
 export const store = configureStore();
-store.dispatch(push('/login'))
 
 
 ReactDOM.render((
@@ -25,7 +24,9 @@ ReactDOM.render((
                 <ConnectedRouter history={history}>
                     <Switch>
                         <Route path="/login" component={Login} />
-                        <PrivateRoute exact path="/home" component={Home} />
+                        <Route path="/signup" component={Signup} />
+                        <Route path="/home" component={Home} />
+                        <Redirect to="/home" />
                     </Switch>
                 </ConnectedRouter>
             </AppContainer>

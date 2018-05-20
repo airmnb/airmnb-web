@@ -46,11 +46,12 @@ export const get = (opts) => {
 }
 
 export const post = (opts) => {
+    const {url, body} = opts;
     const token = localStorage.getItem('token');
 
     let defaultHeaders = {};
     if(token) {
         defaultHeaders.Authorization= `bearer ${token}`;
     }
-    return Observable.ajax(opts.url, Object.assign({}, defaultHeaders, opts.headers));
+    return Observable.ajax({url, body, method: 'post', headers: Object.assign({}, defaultHeaders, opts.headers)});
 }

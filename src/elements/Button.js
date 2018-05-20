@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import {GoogleIcon} from './icons/Google';
+import {GoogleIcon} from './Icons';
 
 export const Button = styled.button`
-  background: ${({ secondary, theme }) => secondary ? theme.secondary_2 : theme.primary_2};
+  background: ${({ primary, theme }) => primary ? theme.primary_1 : theme.secondary_1};
   border: none;
   border-radius: 5px;
-  color: #000;
+  color: ${({ theme }) => theme.primary_2};
   cursor: pointer;
   display: inline-block;
-  border: 1px solid #000;
+  border: 1px solid ${({ theme }) => theme.primary_2};
   line-height: 31px;  
   margin: 8px 0;
   outline: none;
@@ -21,16 +21,16 @@ export const Button = styled.button`
   font-size: 16px;
   font-weight: 400;
   &:hover {
-    background: #FFE700;
+    background: ${({ primary, theme }) => primary ? theme.primary_1_L1 : theme.secondary_2};
   }
 `;
 
 export const GoggleBtnStyled = Button.extend`
-  background: #efefef;
-  color: black;
+  background: ${({ theme }) => theme.secondary_1};
+  color: ${({ theme }) => theme.primary_2};
   text-align: left;
   &:hover {
-    background: #fff;
+    background: ${({ theme }) => theme.secondary_2};;
   };
   .logo-contianer{
     cursor: pointer;
