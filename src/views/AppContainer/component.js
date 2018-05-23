@@ -21,7 +21,6 @@ const PrivateContainer = ({match}) =>
 const PublicContainer = () =>{
     let redirect = '';
 
-    debugger
     if(!window.location.search.match(/redirect=/ig) && !config.publicUrls.includes(config.publicUrls)) {
         redirect = window.location.pathname;
     }
