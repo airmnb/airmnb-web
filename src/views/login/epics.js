@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/ignoreElements'
+import { getUrlParams } from '../../services/routerService';
 
 export const loginNativeUserEpic = (action$, store, deps) =>
     action$
@@ -21,7 +22,10 @@ export const loginNativeUserEpic = (action$, store, deps) =>
 export const loginGoogleUserEpic = (action$) => {
     return action$
     .ofType(a.LOGIN_GOOGLE_USER)
-    .do(() => {window.location = `${login}?use=google&session_id=${localStorage.getItem('sessionId')}`})
+    .do(() => {
+        const redirect = getUrlParams(window.location.href)['redirect'];
+        window.location = `${login}?use=google&session_id=${localStorage.getItem('sessionId')}${redirect? `&${redirect}`:''}`
+    })
     .ignoreElements()
     
 }

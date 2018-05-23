@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import { BarsIcon } from './Icons';
 import { Link } from 'react-router-dom';
 
 const StyledNav = styled.nav`
@@ -115,7 +114,7 @@ export class Nav extends Component {
                 <div className="bar bottom"></div>
             </MenuIcon>
             <StyledNav className={this.state.show? 'show': null} onClick={() => this.setState({'show': false})}>
-                {tabs.map(tab => <Link to={tab.url}>{tab.label}</Link>)}
+                {tabs.map((tab, i) => <Link to={tab.url} key={i}>{tab.label}</Link>)}
             </StyledNav>
         </div>
         )

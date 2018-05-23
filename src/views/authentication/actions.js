@@ -11,8 +11,9 @@ export const authSuccess = () => ({
     type: AUTH_SUCCESS
 });
 
-export const authFail = () => ({
-    type: AUTH_FAIL
+export const authFail = (err) => ({
+    type: AUTH_FAIL,
+    err,
 });
 
 export const authLogout = () => ({

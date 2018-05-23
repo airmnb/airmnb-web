@@ -16,7 +16,7 @@ export const signupNativeUserEpic = (action$) =>
         const {accountName, password} = action;
         return post({url: signup, body: {accountName, password, from: 'web'}})
         .map(signupNativeFulfilled)
-        .catch(err => {debugger; return Observable.of(signupNativeFailed(err))});
+        .catch(err => Observable.of(signupNativeFailed(err)));
     });
 
 export const signupCheckUserEpic = (action$) =>

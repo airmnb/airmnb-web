@@ -2,7 +2,7 @@ import * as actions from './actions';
 
 const initialState = {
     isAuthenticated: false,
-    loading: false
+    loading: true
 };
 
 export default (state = initialState, action) => {
@@ -22,6 +22,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: false,
+                err: action.err,
                 loading: false
             }
         default:

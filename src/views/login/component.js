@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Input, Button, GoggleBtn, H1, Container } from '../../elements';
 import { loginNativeUser, loginGoogleUser } from './actions';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-
-import { Nav } from '../../elements/Nav';
 
 class Login extends Component {
     render() {

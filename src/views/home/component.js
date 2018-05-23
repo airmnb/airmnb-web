@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authLogout } from '../authentication/actions';
-import { Nav, Header, Logo } from '../../elements';
-import { Link } from 'react-router-dom'
+import { Nav, Header } from '../../elements';
 
 export class Home extends Component {
     tabs = [
