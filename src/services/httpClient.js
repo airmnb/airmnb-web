@@ -48,8 +48,8 @@ export const get = (opts) => {
 export const post = (opts) => {
     const {url, body} = opts;
     const token = localStorage.getItem('token');
-
-    let defaultHeaders = {};
+    
+    let defaultHeaders =  { 'Content-Type': 'application/json' };
     if(token) {
         defaultHeaders.Authorization= `bearer ${token}`;
     }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/pluck';
-import 'rxjs/add/operator/throttleTime';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 
@@ -23,7 +23,7 @@ export const signupCheckUserEpic = (action$) =>
     action$
     .ofType(SIGNUP_CHECK_USER)
     .pluck('accountName')
-    .throttleTime(10000)
+    .debounceTime(300)
     .distinctUntilChanged()
     .mergeMap(accountName =>{
         return post({url: signup, body: {accountName, check: true, from: 'web'}})

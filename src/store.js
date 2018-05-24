@@ -1,10 +1,10 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import loginReducer from './views/login/reducer';
 import authReducer from './views/authentication/reducer';
-import userReducer from './views/user/reducer';
+import userReducer from './views/profile/reducer';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { loginNativeUserEpic, loginGoogleUserEpic } from './views/login/epics';
-import { fetchUserEpic } from './views/user/epics';
+import { fetchUserEpic } from './views/profile/epics';
 import createHistory from 'history/createBrowserHistory'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 import signupReducer from './views/signup/reducer';

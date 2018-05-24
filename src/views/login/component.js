@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Button, GoggleBtn, H1, Container } from '../../elements';
+import { Input, Button, GoggleBtn, Container, Title } from '../../shared';
 import { loginNativeUser, loginGoogleUser } from './actions';
 import { connect } from 'react-redux';
 
@@ -8,9 +8,9 @@ class Login extends Component {
         const { login } = this.props
         return (
             <Container>
-                <H1>Login</H1>
+                <Title>Login</Title>
                 {login.loading && <span>loading</span>}
-                <Input placeholder="accountName" type="text" name="accountName" innerRef={u => this.accountName = u} />
+                <Input placeholder="account" type="text" name="accountName" innerRef={u => this.accountName = u} />
                 <Input placeholder="Password" type='password' name="password" innerRef={p => this.password = p} />
                 <Button primary onClick={() => this.props.loginNativeUser(this.accountName, this.password)}>Submit</Button>
                 <div className="align-center " style={{padding: '20px 0'}}>

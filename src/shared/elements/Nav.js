@@ -8,13 +8,13 @@ const StyledNav = styled.nav`
     width: 100%;
     top: -100%;
     left: 0;
-    background: ${({theme}) => theme.secondary_2};
+    background: ${({theme}) => theme.secondary_1};
     border-right: 1px solid black;
     z-index: 999;
     text-align: center;
     overflow: hidden;
     opacity: 0;
-    transition: all .5s linear;
+    transition: all .3s linear;
     padding-top: 100px;
     &.show {
         top: 0;
@@ -22,6 +22,7 @@ const StyledNav = styled.nav`
         a {
             margin: 70px auto;
             opacity: 1;
+            font-weight: 400;
         }
     }
     .close-btn{
@@ -44,7 +45,7 @@ const StyledNav = styled.nav`
         min-width: 50px;
         max-width: 500px;
         font-weight: 200;
-        transition: all .5s ease-in;
+        transition: all .3s ease-in;
         opacity: 0;
         &:hover {
             text-decoration: underline;
@@ -61,7 +62,7 @@ const MenuIcon = styled.div`
     display: inline-block;
     width: auto;
     margin: 0 auto;
-    transition: all .5s ease;
+    transition: all .3s ease;
     z-index: 1000;
     .bar {
         display: block;
@@ -72,7 +73,7 @@ const MenuIcon = styled.div`
     }
 
     &.show .bar{
-        background-color: ${({theme}) => theme.primary_1};
+        background-color: ${({theme}) => theme.primary_2};
     }
  
     .middle {
@@ -80,7 +81,7 @@ const MenuIcon = styled.div`
     }
  
     .bar {
-        transition: all .5s ease;
+        transition: all .3s ease;
     }
  
     &.show .top {

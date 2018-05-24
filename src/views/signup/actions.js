@@ -24,7 +24,7 @@ export const signupNativeFailed = (error) => ({
 export const signupCheckUser = (payload) => {
     return {
     type: SIGNUP_CHECK_USER,
-    accoutName: payload
+    accountName: payload
 };}
 
 export const signupCheckUserFulfilled = (payload) => ({

@@ -1,24 +1,49 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { authCheck } from '../authentication/actions';
-import { Logo } from '../../elements';
+import { Logo, Header, Nav } from '../../shared';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux'
 import { history } from '../../store';
 import { Home } from '../home/component';
 import Login from '../login/component';
 import Signup from '../signup/component';
+import { Profile } from '../profile/component';
 import config from '../../config';
 import { getUrlParams } from '../../services/routerService';
 
+const Content = styled.section`
+    padding: 70px;
+`
 
-const PrivateContainer = ({match}) =>    
+
+const tabs = [
+    {
+        url: '/platform/home',
+        label: 'Home'
+    },
+    {
+        url: '/platform/profile',
+        label: 'Profile'
+    },
+]
+
+const PrivateContainer = ({match}) =>
     <div>
-        <Route path={`${match.path}/home`} component={Home} />
-        <Redirect to={`${match.path}/home`} component={Home} />
+        <Header>
+            <Nav tabs={tabs} />
+        </Header>
+        <Content>
+            <Switch>
+                <Route path={`${match.path}/home`} component={Home} />
+                <Route path={`${match.path}/profile`} component={Profile} />
+                <Redirect to={`${match.path}/home`} component={Home} />
+            </Switch>
+        </Content>
     </div>
 
-const PublicContainer = () =>{
+const PublicContainer = () => {
     let redirect = '';
 
     if(!window.location.search.match(/redirect=/ig) && !config.publicUrls.includes(config.publicUrls)) {
