@@ -9,15 +9,14 @@ class Login extends Component {
         return (
             <Container>
                 <Title>Login</Title>
-                {login.loading && <span>loading</span>}
-                <Input placeholder="account" type="text" name="accountName" innerRef={u => this.accountName = u} />
+                <Input placeholder="Account" type="text" name="accountName" innerRef={u => this.accountName = u} />
                 <Input placeholder="Password" type='password' name="password" innerRef={p => this.password = p} />
-                <Button primary onClick={() => this.props.loginNativeUser(this.accountName, this.password)}>Submit</Button>
+                <Button primary onClick={() => this.props.loginNativeUser(this.accountName.value, this.password.value)}>Submit</Button>
                 <div className="align-center " style={{padding: '20px 0'}}>
                     <span style={{display: 'inline-block', width: '30px', background: 'white',zIndex: '1', position: 'relative'}}>or</span>
                     <div className="separator"></div>
                 </div>
-                <GoggleBtn onClick={this.props.loginGoogleUser}/>
+                <GoggleBtn loading={login.loading} onClick={this.props.loginGoogleUser}/>
             </Container>
         )
     }
@@ -26,7 +25,7 @@ class Login extends Component {
 const mapState = ({ login, user }) => ({ login, user })
 
 const mapDispatch = (dispatch) => ({
-    loginNativeUser: (payload) => dispatch(loginNativeUser(payload)),
+    loginNativeUser: (accountName, password) => dispatch(loginNativeUser(accountName, password)),
     loginGoogleUser: () => dispatch(loginGoogleUser())
 });
 

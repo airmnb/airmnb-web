@@ -31,6 +31,7 @@ export const get = (opts) => {
         defaultHeaders.Authorization= `bearer ${token}`;
     }
     return Observable.ajax({url, method: 'get', headers: Object.assign({}, defaultHeaders, headers)})
+    .pluck('response')
     .catch(err => {
         if(err.status === 401) {
             if(err.request.url.match(/sys\/whoami/ig)) {

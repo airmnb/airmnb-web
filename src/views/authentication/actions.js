@@ -7,8 +7,9 @@ export const authCheck = () => ({
     type: AUTH_CHECK
 })
 
-export const authSuccess = () => ({
-    type: AUTH_SUCCESS
+export const authSuccess = (payload) => ({
+    type: AUTH_SUCCESS,
+    payload
 });
 
 export const authFail = (err) => ({

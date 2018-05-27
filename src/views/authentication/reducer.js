@@ -2,7 +2,8 @@ import * as actions from './actions';
 
 const initialState = {
     isAuthenticated: false,
-    loading: true
+    loading: true,
+    user: null
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +17,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: true,
-                loading: false
+                loading: false,
+                user: action.payload.user
             }
         case actions.AUTH_FAIL:
             return {

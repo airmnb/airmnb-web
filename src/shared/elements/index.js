@@ -5,4 +5,5 @@ export * from './Nav';
 export * from './Container';
 export * from './Typography';
 export * from './Header';
-export * from './Icons'
+export * from './Icons';
+export * from './Toggle';

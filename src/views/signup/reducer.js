@@ -2,7 +2,8 @@ import * as actions from './actions';
 const initialState = {
     loading: false,
     validUser: null,
-    error: null
+    error: null,
+    checkInProgress: false
 }
 
 export default (state = initialState, action) => {
@@ -28,19 +29,19 @@ export default (state = initialState, action) => {
         case actions.SIGNUP_CHECK_USER:
             return {
                 ...state,
-                loading: true
+                checkInProgress: true
             }
         case actions.SIGNUP_CHECK_USER_FULFILLED:
             return {
                 ...state,
                 validUser: true,
-                loading: false
+                checkInProgress: false
             }
         case actions.SIGNUP_CHECK_USER_FAILED:
             return {
                 ...state,
                 validUser: false,
-                loading: false
+                checkInProgress: false
             }
         default:
             return state;
