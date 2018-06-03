@@ -1,6 +1,7 @@
 import * as actions from './actions';
 const initialState = {
-    loading: false,
+    nativeLoading: false,
+    googleLoading: false,
     token: null,
     user: null,
     error: null
@@ -13,24 +14,24 @@ export default (state = initialState, action) => {
                 ...state,
                 error: null,
                 token: null,
-                loading: true
+                nativeLoading: true
             }
         case actions.LOGIN_NATIVE_USER_FAILED:
             return {
                 ...state,
                 error: action.error,
-                loading: false
+                nativeLoading: false
             }
         case actions.LOGIN_NATIVE_USER_FULFILLED:
             return {
                 ...state,
                 user: action.payload,
-                loading: false
+                nativeLoading: false
             }
         case actions.LOGIN_GOOGLE_USER:
             return {
                 ...state,
-                loading: true
+                googleLoading: true
             }
         default:
             return state;

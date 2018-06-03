@@ -54,5 +54,13 @@ export const post = (opts) => {
     if(token) {
         defaultHeaders.Authorization= `bearer ${token}`;
     }
-    return Observable.ajax({url, body, method: 'post', headers: Object.assign({}, defaultHeaders, opts.headers)});
+    return Observable.ajax({url, body, method: 'post', headers: Object.assign({}, defaultHeaders, opts.headers)})
+    .pluck('response')
+    .catch(err => {
+        if(err.status === 401) {
+            store.dispatch(push('/login'));
+        }
+
+        return Observable.throw(err);
+    });
 }

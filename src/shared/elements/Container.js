@@ -4,7 +4,7 @@ export const Container = styled.div`
     position: relative;
     margin: auto;
     max-width: 500px;
-    margin-top: 100px;
+    margin-top: 30px;
     padding: 20px;
     animation: fadein .5s;
     @keyframes fadein {

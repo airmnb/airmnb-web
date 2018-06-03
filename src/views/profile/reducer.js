@@ -14,13 +14,31 @@ export default (state = initiaState, action) => {
                 loading: true,
                 error: null
             }
-        case actions.FETCH_USER_FULLFILLED:
+        case actions.FETCH_USER_FULFILLED:
             return {
                 ...state,
                 loading: false,
                 data: action.payload
             }
         case actions.FETCH_USER_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+        case actions.SAVE_USER:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        case actions.SAVE_USER_FULFILLED:
+            return {
+                ...state,
+                loading: false,
+                data: action.payload
+            }
+        case actions.SAVE_USER_FAILED:
             return {
                 ...state,
                 loading: false,

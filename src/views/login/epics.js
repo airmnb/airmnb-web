@@ -4,6 +4,7 @@ import * as a from './actions';
 import { post } from '../../services/httpClient';
 import { login } from '../../linksRel';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -27,7 +28,8 @@ export const loginNativeUserFulfilledEpic = (action$) =>{
     const redirect = getUrlParams(window.location.href)['redirect'] || '/platform/home';
     return action$
     .ofType(a.LOGIN_NATIVE_USER_FULFILLED)
-    .map(() => push(redirect))
+    .mapTo(redirect)
+    .map(push)
 }
 
 export const loginGoogleUserEpic = (action$) => {
@@ -35,7 +37,7 @@ export const loginGoogleUserEpic = (action$) => {
     .ofType(a.LOGIN_GOOGLE_USER)
     .do(() => {
         const redirect = getUrlParams(window.location.href)['redirect'];
-        window.location = `${login}?use=google&session_id=${localStorage.getItem('sessionId')}${redirect? `&${redirect}`:''}`
+        window.location = `${login}?use=google&session_id=${localStorage.getItem('sessionId')}${redirect? `&r=${redirect}`:''}`
     })
     .ignoreElements()
     

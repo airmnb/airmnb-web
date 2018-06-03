@@ -3,8 +3,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { GoogleIcon, Loader } from '../index';
 
-export const ButtonRaw = ({disabled, loading, children, ...rest}) => {
-  return <button {...rest} disabled={disabled || loading}>{loading? <Loader size="25" />: children}</button>
+export const ButtonRaw = ({disabled, loading, children, primary, ...passThroughProps}) => {
+  return <button {...passThroughProps} disabled={disabled || loading}>{loading? <Loader size="25" />: children}</button>
 }
 
 ButtonRaw.propTypes = {

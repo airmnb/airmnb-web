@@ -10,7 +10,7 @@ export const theme = {
     primary_3_L1: '#03a9f4b0', // Lightened Blue 1
     // status
     sucess: '#03A9F4',
-    failer: '#FF0000',
+    failure: '#FF0000',
     // grey
     grey_0: '#EEE',
     grey_1: '#DDD',
