@@ -30,12 +30,6 @@ export default [
         message: 'Full Name should be between 8 and 30 characters.'
     },
     {
-        field: 'phone',
-        method: isEmpty,
-        validWhen: false,
-        message: 'Please provide an Mobile.'
-    },
-    {
         field: 'email',
         method: isEmpty,
         validWhen: false,

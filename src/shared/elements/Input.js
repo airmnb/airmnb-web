@@ -26,7 +26,7 @@ class InputRaw extends Component {
     }
 
     render() {
-        const {value, onChange, ...passthroughProps} = this.props;
+        const {value, onChange, fluid, ...passthroughProps} = this.props;
         return <input onChange={this.handleOnChange}  {...passthroughProps} value={this.state.value} />;
     }
 }

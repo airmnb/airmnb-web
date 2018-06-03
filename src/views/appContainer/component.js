@@ -46,7 +46,7 @@ const PrivateContainer = ({match}) =>
 const PublicContainer = () => {
     let redirect = '';
 
-    if(!window.location.search.match(/redirect=/ig) && !config.publicUrls.includes(config.publicUrls)) {
+    if(!window.location.search.match(/r=/ig) && !config.publicUrls.includes(config.publicUrls)) {
         redirect = window.location.pathname;
     }
     return (<div>
@@ -56,7 +56,7 @@ const PublicContainer = () => {
         <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Redirect to={`/login${redirect?'?redirect='+redirect: ''}`} />
+            <Redirect to={`/login${redirect?'?r='+redirect: ''}`} />
         </Switch>
     </div>)
 }
@@ -67,7 +67,7 @@ export class AppContainer extends Component {
     }
     render() {
         const { auth } = this.props;
-        const redirect = getUrlParams(window.location.href)['redirect'];
+        const redirect = getUrlParams(window.location.href)['r'];
         return (
             <div>
                 {   

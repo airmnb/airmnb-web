@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Title, InputControl, Muted, DateControl, FormButtonsGroup, RadioButtonGroupControl } from '../../shared';
+import { Title, InputControl, Muted, DateControl, FormButtonsGroup, RadioButtonGroupControl, Tag } from '../../shared';
 import { connect } from 'react-redux';
 import { FormValidator } from '../../services/formValidator';
 import validationRules from './validationRules';
-import { saveUser } from './actions';
+import { saveUser, cancelUser } from './actions';
 import { RadioButtonGroup } from '../../shared/elements/RadioButton';
 
 export class ProfileRaw extends Component {
@@ -21,6 +21,7 @@ export class ProfileRaw extends Component {
             phone: user.phone || '',
             email: user.email || '',
             dob: user.dob || '',
+            gender: user.gender,
             validation: {}
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -50,19 +51,20 @@ export class ProfileRaw extends Component {
             <div>
                 <div>
                     <Title>Account Profile</Title>
-                    <Muted>#{this.state.userId}</Muted>
+                    <Tag># {this.state.userId}</Tag>
                     <form onSubmit={(ev) => {ev.preventDefault(); this.submit(this.props.saveUser)}}>
                         <InputControl validation={validation.accountName} onChange={this.handleInputChange} name='accountName' label='Account Name' type='text' value={this.state.accountName}/>
                         <InputControl validation={validation.fullName} onChange={this.handleInputChange} name='fullName' label='Full Name' type='text' value={this.state.fullName}/>
                         <InputControl validation={validation.phone} onChange={this.handleInputChange} name='phone' label='Mobile' type='text' value={this.state.phone}/>
                         <InputControl validation={validation.email} onChange={this.handleInputChange} name='email' label='Email' type='text' value={this.state.email}/>
                         <DateControl validation={validation.dob} onChange={this.handleInputChange} name='dob' label='Date of Birth' type='text' value={this.state.dob}/>
-                        <RadioButtonGroupControl onChange={this.handleInputChange} name='gender' label='Gender' items={[{label: 'male', value: 1}, {label: 'female', value: 2}]} />
+                        <RadioButtonGroupControl validation={validation.gender} onChange={this.handleInputChange} name='gender' label='Gender' value={this.state.gender} items={[{label: 'male', value: 1}, {label: 'female', value: 2}]} />
                         <FormButtonsGroup
                             primaryLabel='Save'
                             disablePrimary={false}
                             secondaryLabel='Cancel'
                             disableSecondary={false}
+                            onSecondaryClick={this.props.handleCancel}
                         />
                     </form>
                 </div>
@@ -76,8 +78,8 @@ export class ProfileRaw extends Component {
             if(!this.state.validation.isValid) {
                 return
             }
-            save();
         });
+        this.props.saveUser(this.state)
     }
 }
 
@@ -86,7 +88,8 @@ const mapStateToProps = ({auth}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    saveUser: (payload) => dispatch(saveUser(payload))
+    saveUser: (payload) => dispatch(saveUser(payload)),
+    handleCancel: () => dispatch(cancelUser())
 });
 
 export const Profile = connect(mapStateToProps, mapDispatchToProps)(ProfileRaw);

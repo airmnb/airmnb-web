@@ -8,18 +8,18 @@ const RadioRaw = ({className, selected}) =>
 
 export const Radio = styled(RadioRaw)`
     display: inline-block;
-    width: 15px;
-    height: 15px;
-    padding: 4px;
+    width: 12px;
+    height: 12px;
+    padding: 7px;
     border: 1px solid ${({theme} ) => theme.primary_2};
     border-radius: 15px;
-    line-height: 15px;
+    line-height: 12px;
     margin-right: 5px;
     > span {
         display: inline-block;
         opacity: 0;
-        width: 15px;
-        height: 15px;
+        width: 12px;
+        height: 12px;
         background: ${({theme} ) => theme.primary_3};
         border-radius: 13px;
         &.selected {

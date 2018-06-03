@@ -1,4 +1,4 @@
-import { getUser } from "../../linksRel";
+import { whoami } from "../../linksRel";
 import { authSuccess, authFail, AUTH_CHECK } from "./actions";
 import { get } from "../../services/httpClient";
 import {Observable} from 'rxjs/Observable';
@@ -8,7 +8,7 @@ export const authCheckEpic = (action$, store) => {
     return action$
     .ofType(AUTH_CHECK)
     .mergeMap(() =>
-        get({url: getUser})
+        get({url: whoami})
         .map(res => {
             return authSuccess(res);
         })

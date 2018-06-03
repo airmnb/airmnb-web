@@ -7,3 +7,4 @@ export * from './Anchor';
 export * from './ErrorMessage';
 export * from './Icons';
 export * from './Radio';
+export * from './Tag';

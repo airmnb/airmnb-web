@@ -25,7 +25,7 @@ export const loginNativeUserEpic = (action$, store, deps) =>
     })
 
 export const loginNativeUserFulfilledEpic = (action$) =>{
-    const redirect = getUrlParams(window.location.href)['redirect'] || '/platform/home';
+    const redirect = getUrlParams(window.location.href)['r'] || '/platform/home';
     return action$
     .ofType(a.LOGIN_NATIVE_USER_FULFILLED)
     .mapTo(redirect)
@@ -36,7 +36,7 @@ export const loginGoogleUserEpic = (action$) => {
     return action$
     .ofType(a.LOGIN_GOOGLE_USER)
     .do(() => {
-        const redirect = getUrlParams(window.location.href)['redirect'];
+        const redirect = getUrlParams(window.location.href)['r'];
         window.location = `${login}?use=google&session_id=${localStorage.getItem('sessionId')}${redirect? `&r=${redirect}`:''}`
     })
     .ignoreElements()

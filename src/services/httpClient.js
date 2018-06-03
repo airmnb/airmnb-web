@@ -64,3 +64,22 @@ export const post = (opts) => {
         return Observable.throw(err);
     });
 }
+
+export const put = (opts) => {
+    const {url, body} = opts;
+    const token = localStorage.getItem('token');
+    
+    let defaultHeaders =  { 'Content-Type': 'application/json' };
+    if(token) {
+        defaultHeaders.Authorization= `bearer ${token}`;
+    }
+    return Observable.ajax({url, body, method: 'put', headers: Object.assign({}, defaultHeaders, opts.headers)})
+    .pluck('response')
+    .catch(err => {
+        if(err.status === 401) {
+            store.dispatch(push('/login'));
+        }
+
+        return Observable.throw(err);
+    });
+}
