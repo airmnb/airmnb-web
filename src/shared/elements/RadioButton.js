@@ -9,7 +9,7 @@ class RadioButtonRaw extends Component {
     static propTypes = {
         onChange: PropTypes.func.isRequired,
         label: PropTypes.string.isRequired,
-        value: PropTypes.bool
+        selected: PropTypes.bool
     }
 
     static defaultProps = {
@@ -37,7 +37,7 @@ class RadioButtonRaw extends Component {
     }
 
     render() {
-        const {selected, label, onChange, className} = this.props;
+        const {label, className} = this.props;
         return <span className={className} onClick={this.handleSelectRadioButton}>
             <Radio selected={this.state.selected} />
             <Label>{label}</Label>
@@ -70,7 +70,7 @@ export class RadioButtonGroup extends Component {
     }
 
     render() {
-        const {items, onChange} = this.props;
+        const { items } = this.props;
         return <div className='margin-top-10px'>
             {items.map(r => <RadioButton label={r.label} value={r.value || r.label} key={r.label} selected={r.value === this.state.selected} onChange={this.handleSelectRadioButton}/>)}
         </div>

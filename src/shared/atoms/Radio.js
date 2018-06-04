@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const RadioRaw = ({className, selected}) =>
     <span className={className}>
-        <span class={`${selected? 'selected': ''}`}></span>
+        <span className={`${selected? 'selected': ''}`}></span>
     </span>
 
 export const Radio = styled(RadioRaw)`

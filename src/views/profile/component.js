@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Title, InputControl, Muted, DateControl, FormButtonsGroup, RadioButtonGroupControl, Tag } from '../../shared';
+import { Title, InputControl, DateControl, FormButtonsGroup, RadioButtonGroupControl, Tag } from '../../shared';
 import { connect } from 'react-redux';
 import { FormValidator } from '../../services/formValidator';
 import validationRules from './validationRules';
 import { saveUser, cancelUser } from './actions';
-import { RadioButtonGroup } from '../../shared/elements/RadioButton';
 
 export class ProfileRaw extends Component {
 
