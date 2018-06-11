@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { authCheck } from '../authentication/actions';
-import { Logo, Header, Nav } from '../../shared';
+import { Logo, Header, Nav, Select } from '../../shared';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux'
 import { history } from '../../store';
@@ -12,6 +12,8 @@ import Signup from '../signup/component';
 import { Profile } from '../profile/component';
 import config from '../../config';
 import { getUrlParams } from '../../services/routerService';
+import { setLanguage } from "./actions"
+import PropTypes from 'prop-types';
 
 const Content = styled.section`
     padding: 70px;
@@ -62,18 +64,25 @@ const PublicContainer = () => {
 }
 
 export class AppContainer extends Component {
+
+    lang = localStorage.getItem('lang');
+
     componentWillMount() {
-        this.props.authCheck()
+        this.props.authCheck();
+        this.props.setLanguage(this.lang || 'en')
     }
     render() {
-        const { auth } = this.props;
+        const { auth, setLanguage } = this.props;
         const redirect = getUrlParams(window.location.href)['r'];
         return (
             <div>
+                <div style={{padding: '0 20px', textAlign: 'right'}}>
+                    <Select collection={[{id: 'en', label: 'English'}, {id: 'zh', label: '中文 (简体)'}]} defaultValue={this.lang} onChange={setLanguage} />
+                </div>
                 {   
                     (auth.loading) ? 
                         (
-                        <div style={{ textAlign: 'center', marginTop: '100px' }}>
+                        <div style={{ textAlign: 'center', marginTop: '60px' }}>
                             <Logo colored={true} />
                             <div className="align-center">loading</div>
                         </div>
@@ -95,10 +104,18 @@ export class AppContainer extends Component {
     }
 }
 
-const mapState = ({ auth }) => ({ auth })
+AppContainer.contextTypes = {
+    t: PropTypes.func.isRequired
+}
+
+const mapState = ({ auth, i18nState }) => ({
+    auth,
+    i18nState
+})
 
 const mapDispatch = (dispatch) => ({
-    authCheck: () => dispatch(authCheck())
+    authCheck: () => dispatch(authCheck()),
+    setLanguage: (lang) => dispatch(setLanguage(lang))
 })
 
 export default connect(mapState, mapDispatch)(AppContainer);

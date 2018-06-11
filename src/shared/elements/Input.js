@@ -22,7 +22,8 @@ class InputRaw extends Component {
 
     handleOnChange(ev) {
         const { name, value } = ev.target;
-        this.props.onChange(name, value);
+        if(this.props.onChange)
+            this.props.onChange(name, value);
     }
 
     render() {

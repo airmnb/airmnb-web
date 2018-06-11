@@ -9,3 +9,4 @@ export * from './Date';
 export * from './Checkbox';
 export * from './RadioButton';
 export * from './FormButtonsGroup';
+export * from './Select';

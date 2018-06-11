@@ -3,11 +3,13 @@ import loginReducer from './views/login/reducer';
 import authReducer from './views/authentication/reducer';
 import userReducer from './views/profile/reducer';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
+import { setLangEpic } from './views/appContainer/epics';
 import { loginNativeUserEpic, loginNativeUserFulfilledEpic, loginGoogleUserEpic } from './views/login/epics';
 import { userEpics } from './views/profile/epics';
 import createHistory from 'history/createBrowserHistory'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 import signupReducer from './views/signup/reducer';
+import { i18nState } from "redux-i18n"
 
 // dependencies
 import { Observable } from 'rxjs/Observable';
@@ -27,7 +29,8 @@ export const configureStore = (deps = {}) => {
         authCheckEpic,
         signupNativeUserEpic,
         signupNativeUserFulfilledEpic,
-        signupCheckUserEpic
+        signupCheckUserEpic,
+        setLangEpic
     )
     
     // plugin redux debugging tool
@@ -47,7 +50,8 @@ export const configureStore = (deps = {}) => {
         router: routerReducer,
         login: loginReducer,
         user: userReducer,
-        signup: signupReducer
+        signup: signupReducer,
+        i18nState
     });
 
     return createStore(reducers, composeEnhancer(applyMiddleware(epicMW, routerMW)));

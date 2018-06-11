@@ -69,6 +69,6 @@ export const GoggleBtnStyled = Button.extend`
   }
 `
 
-export const GoggleBtn = ({disabled, loading, ...rest}) => {
-  return <GoggleBtnStyled {...rest} disabled={disabled || loading} loading={loading}>{loading? <Loader size="25" />: <span><span className='logo-contianer'><GoogleIcon/></span><label>Login In With google</label></span>}</GoggleBtnStyled>
+export const GoggleBtn = ({disabled, loading, label, ...rest}) => {
+  return <GoggleBtnStyled {...rest} disabled={disabled || loading} loading={loading}>{loading? <Loader size="25" />: <span><span className='logo-contianer'><GoogleIcon/></span><label>{label}</label></span>}</GoggleBtnStyled>
 }
