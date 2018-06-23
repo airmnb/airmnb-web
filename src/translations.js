@@ -7,6 +7,10 @@ export const translations = {
       "or": "要么",
       "Log In With Google": "用谷歌登录",
       "New Customer?": "新客户？",
-      "Sign Up now": "立即注册"
+      "Sign Up now": "立即注册",
+
+
+      //validations
+      "input Field is required.": "输入字段是必需的"
     }
   }

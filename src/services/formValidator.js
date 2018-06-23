@@ -1,9 +1,22 @@
-import validator from 'validator';
-
 export class FormValidator {
 
-    constructor(validations) {
-        this.validations = validations;
+    constructor(config) {
+        this.validations = this.extractValidations(config);
+    }
+
+    extractValidations(config) {
+        const validations = [];
+        for (const key in config) {
+            if (config[key].validations) {
+                for (const validation of config[key].validations) {
+                    validations.push({
+                        field: key,
+                        ...validation
+                    })
+                }
+            }
+        }
+        return validations;
     }
 
     validate(state) {
@@ -16,18 +29,10 @@ export class FormValidator {
             if (!validation[rule.field].isInvalid) {
                 // determine the field value, the method to invoke and
                 // optional args from the rule definition
-                const field_value = state[rule.field]? state[rule.field].toString(): '';
+                const field_value = state[rule.field] ? state[rule.field].toString() : '';
                 const args = rule.args || [];
-                const validation_method = typeof rule.method === 'string' ?
-                    validator[rule.method] :
-                    rule.method
-                // call the validation_method with the current field value
-                // as the first argument, any additional arguments, and the
-                // whole state as a final argument.  If the result doesn't
-                // match the rule.validWhen property, then modify the
-                // validation object for the field and set the isValid
-                // field to false
-                if (validation_method(field_value, ...args, state) !== rule.validWhen) {
+
+                if (rule.method(field_value, ...args, state) !== rule.validWhen) {
                     validation[rule.field] = {
                         isInvalid: true,
                         message: rule.message

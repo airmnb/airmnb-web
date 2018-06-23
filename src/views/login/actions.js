@@ -5,14 +5,13 @@ export const LOGIN_GOOGLE_USER = 'LOGIN_GOOGLE_USER';
 export const LOGIN_GOOGLE_USER_FAILED = 'LOGIN_GOOGLE_USER_FAILED';
 export const LOGIN_GOOGLE_USER_FULFILLED = 'LOGIN_GOOGLE_USER_FULFILLED';
 
-export const loginNativeUser = (accountName, password) => ({
+export const loginNativeUser = (payload) => ({
     type: LOGIN_NATIVE_USER,
-    accountName,
-    password
+    payload
 });
 
 export const loginNativeUserFailed = (error) => ({
-    type: LOGIN_NATIVE_USER,
+    type: LOGIN_NATIVE_USER_FAILED,
     error
 });
 

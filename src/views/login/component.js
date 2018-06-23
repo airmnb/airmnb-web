@@ -1,18 +1,54 @@
 import React, { Component } from 'react';
 import {PropTypes} from 'prop-types';
-import { Input, Button, GoggleBtn, Container, Title, Anchor, Muted } from '../../shared';
+import { InputControl, Button, GoggleBtn, Container, Title, Anchor, Muted } from '../../shared';
 import { loginNativeUser, loginGoogleUser } from './actions';
 import { connect } from 'react-redux';
+import c from './config';
+import { FormValidator } from '../../services/formValidator';
 
 class Login extends Component {
+    submitted = false;
+    validator= new FormValidator(c);
+
+    static contextTypes = {
+        t: PropTypes.func.isRequired
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            accountName: '',
+            password: '',
+            validation: {}
+        }
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.submit = this.submit.bind(this);
+    }
+
+    handleInputChange(name, value) {
+        this.setState({
+            [name]: value
+        }, this.validate);
+    }
+
+    validate(cb) {
+        if(!this.submitted) {
+            return;
+        }
+        this.setState({validation: this.validator.validate(this.state)}, cb);
+    }
+
     render() {
-        const { login } = this.props
+        const { login, loginNativeUser } = this.props;
+        const { validation } = this.state;
         return (
             <Container>
                 <Title>{this.context.t('Log In')}</Title>
-                <Input placeholder={this.context.t('Account')} type="text" name="accountName" innerRef={u => this.accountName = u} />
-                <Input placeholder={this.context.t('Password')} type='password' name="password" innerRef={p => this.password = p} />
-                <Button primary loading={login.nativeLoading} onClick={() => this.props.loginNativeUser(this.accountName.value, this.password.value)}>{this.context.t('Submit')}</Button>
+                <form onSubmit={(ev) => {ev.preventDefault();this.submit(loginNativeUser);}}>
+                    <InputControl config={c.accountName} validation={validation.accountName} onChange={this.handleInputChange} type="text" name="accountName" />
+                    <InputControl config={c.password} validation={validation.password} onChange={this.handleInputChange} type='password' name="password" />
+                    <Button primary loading={login.nativeLoading}>{this.context.t('Submit')}</Button>
+                </form>
                 <div className="align-center " style={{padding: '20px 0'}}>
                     <span style={{display: 'inline-block', width: '40px', background: 'white', zIndex: 1, position: 'relative', textAlign: 'center' }}>{this.context.t('or')}</span>
                     <div className="separator"></div>
@@ -25,6 +61,16 @@ class Login extends Component {
             </Container>
         )
     }
+
+    submit(save) {
+        this.submitted = true;
+        this.validate(() => {
+            if(!this.state.validation.isValid) {
+                return
+            }
+            this.props.loginNativeUser(this.state);
+        });
+    }
 }
 
 Login.contextTypes = {
@@ -34,7 +80,7 @@ Login.contextTypes = {
 const mapState = ({ login, user }) => ({ login, user })
 
 const mapDispatch = (dispatch) => ({
-    loginNativeUser: (accountName, password) => dispatch(loginNativeUser(accountName, password)),
+    loginNativeUser: (payload) => dispatch(loginNativeUser(payload)),
     loginGoogleUser: () => dispatch(loginGoogleUser())
 });
 

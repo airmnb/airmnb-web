@@ -14,10 +14,9 @@ import { getUrlParams } from '../../services/routerService';
 export const loginNativeUserEpic = (action$, store, deps) =>
     action$
     .ofType(a.LOGIN_NATIVE_USER)
-    .switchMap(({accountName, password}) => {
+    .switchMap(({payload}) => {
         return post({url: login, body: {
-            accountName,
-            password,
+            ...payload,
             session_id: localStorage.getItem('sessionId')
         }})
         .catch(err => Observable.of(a.loginNativeUserFailed(err)))
