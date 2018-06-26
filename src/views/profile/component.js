@@ -71,7 +71,7 @@ export class ProfileRaw extends Component {
         )
     }
 
-    submit(save) {
+    submit() {
         this.submitted = true;
         this.validate(() => {
             if(!this.state.validation.isValid) {

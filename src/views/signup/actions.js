@@ -5,10 +5,9 @@ export const SIGNUP_CHECK_USER = 'SIGNUP_CHECK_USER';
 export const SIGNUP_CHECK_USER_FULFILLED = 'SIGNUP_CHECK_USER_FULFILLED';
 export const SIGNUP_CHECK_USER_FAILED = 'SIGNUP_CHECK_USER_FAILED';
 
-export const signupNativeUser = (accountName, password) => ({
+export const signupNativeUser = (payload) => ({
     type: SIGNUP_NATIVE_USER,
-    accountName,
-    password
+    payload
 });
 
 export const signupNativeFulfilled = (payload) => ({
@@ -21,10 +20,10 @@ export const signupNativeFailed = (error) => ({
     error
 });
 
-export const signupCheckUser = (payload) => {
+export const signupCheckUser = (accountName) => {
     return {
     type: SIGNUP_CHECK_USER,
-    accountName: payload
+    accountName
 };}
 
 export const signupCheckUserFulfilled = (payload) => ({

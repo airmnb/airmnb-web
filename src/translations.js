@@ -8,8 +8,9 @@ export const translations = {
       "Log In With Google": "用谷歌登录",
       "New Customer?": "新客户？",
       "Sign Up now": "立即注册",
-
-
+      "Already a Customer?": "",
+      "Signup": "",
+      "Log In now": "",
       //validations
       "input Field is required.": "输入字段是必需的"
     }

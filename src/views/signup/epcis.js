@@ -14,7 +14,7 @@ export const signupNativeUserEpic = (action$) =>
     action$
     .ofType(a.SIGNUP_NATIVE_USER)
     .mergeMap(action => {
-        const {accountName, password} = action;
+        const {accountName, password} = action.payload;
         return post({url: signup, body: {accountName, password, from: 'web'}})
         .map(a.signupNativeFulfilled)
         .catch(err => Observable.of(a.signupNativeFailed(err)));
@@ -34,5 +34,5 @@ export const signupCheckUserEpic = (action$) =>
     .mergeMap(accountName =>{
         return post({url: signup, body: {accountName, check: true, from: 'web'}})
         .map(a.signupCheckUserFulfilled)
-        .catch(err => Observable.of(a.signupCheckUserFailed(err)))
+        .catch(err => Observable.of(a.signupCheckUserFailed(err.response)));
     });

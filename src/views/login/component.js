@@ -39,12 +39,12 @@ class Login extends Component {
     }
 
     render() {
-        const { login, loginNativeUser } = this.props;
+        const { login } = this.props;
         const { validation } = this.state;
         return (
             <Container>
                 <Title>{this.context.t('Log In')}</Title>
-                <form onSubmit={(ev) => {ev.preventDefault();this.submit(loginNativeUser);}}>
+                <form onSubmit={this.submit}>
                     <InputControl config={c.accountName} validation={validation.accountName} onChange={this.handleInputChange} type="text" name="accountName" />
                     <InputControl config={c.password} validation={validation.password} onChange={this.handleInputChange} type='password' name="password" />
                     <Button primary loading={login.nativeLoading}>{this.context.t('Submit')}</Button>
@@ -62,7 +62,8 @@ class Login extends Component {
         )
     }
 
-    submit(save) {
+    submit(ev) {
+        ev.preventDefault();
         this.submitted = true;
         this.validate(() => {
             if(!this.state.validation.isValid) {

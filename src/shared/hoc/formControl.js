@@ -9,16 +9,16 @@ export function formControl(WrappedComponent) {
             t: PropTypes.func.isRequired,
           }
         static proptypes = {
-
+            onInputChange: PropTypes.func.isRequired
         }
         render() {
-            const { validation, config, ...passThroughProps } = this.props;
+            const { validation, config, onChange, name, type, items } = this.props;
             return (
                 <div className="margin-top-20px">
                     <div>
                         <Label>{this.context.t(config.label)}</Label>
                     </div>
-                    <WrappedComponent className={validation && validation.isInvalid && 'inValid'}  { ...passThroughProps } />
+                    <WrappedComponent className={validation && validation.isInvalid && 'inValid'} {...{name, type, onChange, items}}/>
                     {validation && <ErrorMessage>{this.context.t(validation.message)}</ErrorMessage>}
                 </div>
             )

@@ -17,7 +17,7 @@ ReactDOM.render((
     <Provider store={store}>
         <I18n translations={translations}>
             <ThemeProvider theme={theme}>
-                <AppContainer />                
+                <AppContainer />
             </ThemeProvider>
         </I18n>
     </Provider>

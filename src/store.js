@@ -32,10 +32,10 @@ export const configureStore = (deps = {}) => {
         signupCheckUserEpic,
         setLangEpic
     )
-    
+
     // plugin redux debugging tool
     const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    
+
     // middlewares
     const routerMW = routerMiddleware(history)
     const epicMW = createEpicMiddleware(rootEpic, {
@@ -44,7 +44,7 @@ export const configureStore = (deps = {}) => {
             ...deps
         }
     });
-    
+
     const reducers = combineReducers({
         auth: authReducer,
         router: routerReducer,
