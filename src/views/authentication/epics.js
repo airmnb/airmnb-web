@@ -1,7 +1,10 @@
 import { whoami } from "../../linksRel";
-import { authSuccess, authFail, AUTH_CHECK } from "./actions";
+import { authSuccess, authFail, AUTH_CHECK, AUTH_LOGOUT, authLogoutSuccess } from "./actions";
 import { get } from "../../services/httpClient";
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap'
+import { logout } from '../../linksRel';
+import { combineEpics } from 'redux-observable';
 
 export const authCheckEpic = (action$, store) => {
 
@@ -16,4 +19,27 @@ export const authCheckEpic = (action$, store) => {
             return Observable.of(authFail(err))
         })
     );
-}
+};
+
+export const logoutEpic = (action$) =>
+    action$
+    .ofType(AUTH_LOGOUT)
+    .do(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('sessionId');
+    })
+    .switchMap(() => {
+        const logout$ = get({url: logout})
+        .map(authLogoutSuccess)
+        .catch(() => Observable.of(authLogoutSuccess()));
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('sessionId');
+
+        return logout$;
+    });
+
+export default combineEpics(
+    authCheckEpic,
+    logoutEpic
+)

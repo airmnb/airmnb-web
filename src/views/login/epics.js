@@ -14,8 +14,9 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/ignoreElements'
 import 'rxjs/add/operator/startWith';
 import { getUrlParams } from '../../services/routerService';
+import { combineEpics } from 'redux-observable';
 
-export const loginNativeUserEpic = (action$, store, deps) =>
+const loginNativeUserEpic = (action$, store, deps) =>
     action$
     .ofType(a.LOGIN_NATIVE_USER)
     .switchMap(({payload}) => {
@@ -29,14 +30,14 @@ export const loginNativeUserEpic = (action$, store, deps) =>
         .map(a.loginNativeUserFulfilled);
     })
 
-export const loginNativeUserFulfilledEpic = (action$) =>{
+const loginNativeUserFulfilledEpic = (action$) =>{
     const redirect = getUrlParams(window.location.href)['r'] || '/platform/home';
     return action$
     .ofType(a.LOGIN_NATIVE_USER_FULFILLED)
     .switchMap(({payload}) => of(authSuccess(payload),push(redirect)))
 }
 
-export const loginGoogleUserEpic = (action$) => {
+const loginGoogleUserEpic = (action$) => {
     return action$
     .ofType(a.LOGIN_GOOGLE_USER)
     .do(() => {
@@ -46,3 +47,9 @@ export const loginGoogleUserEpic = (action$) => {
     .ignoreElements()
 
 }
+
+export default combineEpics(
+    loginNativeUserEpic,
+    loginNativeUserFulfilledEpic,
+    loginGoogleUserEpic
+);

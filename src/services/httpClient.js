@@ -23,13 +23,14 @@ export const get = (opts) => {
     }
 
     if(queryStr) {
-        url +=`?${queryStr}`; 
+        url +=`?${queryStr}`;
     }
 
     let defaultHeaders = {};
     if(token) {
         defaultHeaders.Authorization= `bearer ${token}`;
     }
+
     return Observable.ajax({url, method: 'get', headers: Object.assign({}, defaultHeaders, headers)})
     .pluck('response')
     .catch(err => {
@@ -49,7 +50,7 @@ export const get = (opts) => {
 export const post = (opts) => {
     const {url, body} = opts;
     const token = localStorage.getItem('token');
-    
+
     let defaultHeaders =  { 'Content-Type': 'application/json' };
     if(token) {
         defaultHeaders.Authorization= `bearer ${token}`;
@@ -68,7 +69,7 @@ export const post = (opts) => {
 export const put = (opts) => {
     const {url, body} = opts;
     const token = localStorage.getItem('token');
-    
+
     let defaultHeaders =  { 'Content-Type': 'application/json' };
     if(token) {
         defaultHeaders.Authorization= `bearer ${token}`;

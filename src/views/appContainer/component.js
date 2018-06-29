@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { authCheck } from '../authentication/actions';
+import { authCheck, authLogout } from '../authentication/actions';
 import { Logo, Header, Nav, Select } from '../../shared';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux'
@@ -19,7 +19,6 @@ const Content = styled.section`
     padding: 70px;
 `
 
-
 const tabs = [
     {
         url: '/platform/home',
@@ -31,10 +30,10 @@ const tabs = [
     },
 ]
 
-const PrivateContainer = ({match}) =>
+const PrivateContainer = ({match, onSigoutClicked}) =>
     <div>
         <Header>
-            <Nav tabs={tabs} />
+            <Nav tabs={tabs} onSigoutClicked={onSigoutClicked}/>
         </Header>
         <Content>
             <Switch>
@@ -65,11 +64,18 @@ const PublicContainer = () => {
 
 export class AppContainer extends Component {
 
-    lang = localStorage.getItem('lang');
+    lang = localStorage.getItem('lang') || 'en';
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            lang: this.lang
+        }
+    }
 
     componentWillMount() {
         this.props.authCheck();
-        this.props.setLanguage(this.lang || 'en')
+        this.props.setLanguage(this.lang)
     }
     render() {
         const { auth, setLanguage } = this.props;
@@ -77,10 +83,10 @@ export class AppContainer extends Component {
         return (
             <div>
                 <div style={{padding: '0 20px', textAlign: 'right'}}>
-                    <Select collection={[{id: 'en', label: 'English'}, {id: 'zh', label: '中文 (简体)'}]} defaultValue={this.lang} onChange={setLanguage} />
+                    <Select collection={[{id: 'en', label: 'English'}, {id: 'zh', label: '中文 (简体)'}]} defaultValue={this.state.lang} onChange={setLanguage} />
                 </div>
-                {   
-                    (auth.loading) ? 
+                {
+                    (auth.loading) ?
                         (
                         <div style={{ textAlign: 'center', marginTop: '60px' }}>
                             <Logo colored={true} />
@@ -91,7 +97,7 @@ export class AppContainer extends Component {
                             {
                                 auth.isAuthenticated?
                                 <Switch>
-                                    <Route path="/platform" component={PrivateContainer} />
+                                    <Route path="/platform" render={(props) => <PrivateContainer onSigoutClicked={this.props.authLogout} {...props}/>} />
                                     <Redirect to={redirect? redirect: '/platform'} />
                                 </Switch>:
                                 <Route path="/" component={PublicContainer} />
@@ -115,6 +121,7 @@ const mapState = ({ auth, i18nState }) => ({
 
 const mapDispatch = (dispatch) => ({
     authCheck: () => dispatch(authCheck()),
+    authLogout: () => dispatch(authLogout()),
     setLanguage: (lang) => dispatch(setLanguage(lang))
 })
 

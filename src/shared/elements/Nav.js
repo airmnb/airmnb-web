@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const StyledNav = styled.nav`
     position: fixed;
@@ -75,25 +76,32 @@ const MenuIcon = styled.div`
     &.show .bar{
         background-color: ${({theme}) => theme.primary_2};
     }
- 
+
     .middle {
         margin: 0 auto;
     }
- 
+
     .bar {
         transition: all .3s ease;
     }
- 
+
     &.show .top {
      transform: translateY(13px) rotateZ(45deg);
     }
- 
+
     &.show .bottom {
         transform: translateY(-13px) rotateZ(-45deg);
     }
- 
+
     &.show .middle {
         width: 0;
+    }
+`;
+
+const LogoutBtn = styled.span`
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
     }
 `;
 
@@ -106,7 +114,7 @@ export class Nav extends Component {
     }
 
     render() {
-        const {tabs} = this.props;
+        const {tabs, onSigoutClicked} = this.props;
         return (
         <div onClick={() => this.setState({'show': false})}>
             <MenuIcon className={this.state.show? 'show': null} onClick={(ev) => {ev.stopPropagation(); this.setState({'show': !this.state.show});}}>
@@ -116,8 +124,13 @@ export class Nav extends Component {
             </MenuIcon>
             <StyledNav className={this.state.show? 'show': null} onClick={() => this.setState({'show': false})}>
                 {tabs.map((tab, i) => <Link to={tab.url} key={i}>{tab.label}</Link>)}
+                <LogoutBtn onClick={onSigoutClicked}>{this.context.t('Logout')}</LogoutBtn>
             </StyledNav>
         </div>
         )
     }
+}
+
+Nav.contextTypes = {
+    t: PropTypes.func.isRequired
 }

@@ -11,6 +11,7 @@ export const translations = {
       "Already a Customer?": "",
       "Signup": "",
       "Log In now": "",
+      "Logout": "",
       //validations
       "input Field is required.": "输入字段是必需的"
     }

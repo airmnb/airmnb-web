@@ -27,6 +27,13 @@ export default (state = initialState, action) => {
                 err: action.err,
                 loading: false
             }
+        case actions.AUTH_LOGOUT_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false,
+                err: null,
+                loading: false
+            }
         default:
             return state;
     }

@@ -8,7 +8,7 @@ import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-export const fetchUserEpic = (action$, state, deps) => {
+const fetchUserEpic = (action$, state, deps) => {
     return action$
     .ofType(FETCH_USER)
     .switchMap(() =>{
@@ -38,7 +38,8 @@ const cancelUserEpic = (action$) => {
     .map(push)
 }
 
-export const userEpics = combineEpics(
+export default combineEpics(
+    fetchUserEpic,
     saveUserEpic,
     cancelUserEpic
 )

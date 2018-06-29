@@ -8,9 +8,10 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { combineEpics } from 'redux-observable';
 
 
-export const signupNativeUserEpic = (action$) =>
+const signupNativeUserEpic = (action$) =>
     action$
     .ofType(a.SIGNUP_NATIVE_USER)
     .mergeMap(action => {
@@ -20,12 +21,12 @@ export const signupNativeUserEpic = (action$) =>
         .catch(err => Observable.of(a.signupNativeFailed(err)));
     });
 
-export const signupNativeUserFulfilledEpic = (action$) =>
+const signupNativeUserFulfilledEpic = (action$) =>
     action$
     .ofType(a.SIGNUP_NATIVE_USER_FULFILLED)
     .map(() => push('/login'))
 
-export const signupCheckUserEpic = (action$) =>
+const signupCheckUserEpic = (action$) =>
     action$
     .ofType(a.SIGNUP_CHECK_USER)
     .pluck('accountName')
@@ -36,3 +37,9 @@ export const signupCheckUserEpic = (action$) =>
         .map(a.signupCheckUserFulfilled)
         .catch(err => Observable.of(a.signupCheckUserFailed(err.response)));
     });
+
+export default combineEpics(
+    signupNativeUserEpic,
+    signupNativeUserFulfilledEpic,
+    signupCheckUserEpic
+)
