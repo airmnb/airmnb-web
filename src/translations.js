@@ -13,6 +13,6 @@ export const translations = {
       "Log In now": "",
       "Logout": "",
       //validations
-      "input Field is required.": "输入字段是必需的"
+      "Input field is required.": "输入字段是必需的"
     }
   }

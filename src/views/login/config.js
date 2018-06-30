@@ -7,7 +7,7 @@ export default {
             {
                 method: isEmpty,
                 validWhen: false,
-                message: 'input Field is required.'
+                message: 'Input field is required.'
             }
         ]
     },
@@ -17,7 +17,7 @@ export default {
             {
                 method: isEmpty,
                 validWhen: false,
-                message: 'input Field is required.'
+                message: 'Input field is required.'
             }
         ]
     }

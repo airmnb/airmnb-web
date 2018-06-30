@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FormValidator } from '../../services/formValidator';
 import c from './config';
 import { saveUser, cancelUser } from './actions';
+import { gender as genderEnum } from '../../enums';
 
 export class ProfileRaw extends Component {
 
@@ -13,6 +14,7 @@ export class ProfileRaw extends Component {
     constructor(props) {
         super(props)
         const { user } = this.props;
+        debugger
         this.state = {
             ...user,
             accountName: user.accountName || '',
@@ -48,25 +50,23 @@ export class ProfileRaw extends Component {
         const { validation } = this.state;
         return (
             <div>
-                <div>
-                    <Title>Account Profile</Title>
-                    <Tag># {this.state.userId}</Tag>
-                    <form onSubmit={(ev) => {ev.preventDefault(); this.submit(this.props.saveUser)}}>
-                        <InputControl config={c.accountName} validation={validation.accountName} onChange={this.handleInputChange} name='accountName' type='text' value={this.state.accountName}/>
-                        <InputControl config={c.fullName} validation={validation.fullName} onChange={this.handleInputChange} name='fullName' type='text' value={this.state.fullName}/>
-                        <InputControl config={c.phone} onChange={this.handleInputChange} name='phone' type='text' value={this.state.phone}/>
-                        <InputControl config={c.email} validation={validation.email} onChange={this.handleInputChange} name='email' type='text' value={this.state.email}/>
-                        <DateControl config={c.dob} onChange={this.handleInputChange} name='dob' type='text' value={this.state.dob}/>
-                        <RadioButtonGroupControl config={c.gender} onChange={this.handleInputChange} name='gender' value={this.state.gender} items={[{label: 'male', value: 1}, {label: 'female', value: 2}]} />
-                        <FormButtonsGroup
-                            primaryLabel='Save'
-                            disablePrimary={false}
-                            secondaryLabel='Cancel'
-                            disableSecondary={false}
-                            onSecondaryClick={this.props.handleCancel}
-                        />
-                    </form>
-                </div>
+                <Title>Account Profile</Title>
+                <Tag># {this.state.userId}</Tag>
+                <form onSubmit={(ev) => {ev.preventDefault(); this.submit(this.props.saveUser)}}>
+                    <InputControl config={c.accountName} validation={validation.accountName} onChange={this.handleInputChange} name='accountName' type='text' value={this.state.accountName}/>
+                    <InputControl config={c.fullName} validation={validation.fullName} onChange={this.handleInputChange} name='fullName' type='text' value={this.state.fullName}/>
+                    <InputControl config={c.phone} onChange={this.handleInputChange} name='phone' type='text' value={this.state.phone}/>
+                    <InputControl config={c.email} validation={validation.email} onChange={this.handleInputChange} name='email' type='text' value={this.state.email}/>
+                    <DateControl config={c.dob} onChange={this.handleInputChange} name='dob' type='text' value={this.state.dob}/>
+                    <RadioButtonGroupControl config={c.gender} onChange={this.handleInputChange} name='gender' value={this.state.gender} items={genderEnum} />
+                    <FormButtonsGroup
+                        primaryLabel='Save'
+                        disablePrimary={false}
+                        secondaryLabel='Cancel'
+                        disableSecondary={false}
+                        onSecondaryClick={this.props.handleCancel}
+                    />
+                </form>
             </div>
         )
     }

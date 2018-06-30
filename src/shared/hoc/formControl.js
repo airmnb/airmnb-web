@@ -12,13 +12,13 @@ export function formControl(WrappedComponent) {
             onInputChange: PropTypes.func.isRequired
         }
         render() {
-            const { validation, config, onChange, name, type, items } = this.props;
+            const { validation, config, onChange, name, type, items, value } = this.props;
             return (
                 <div className="margin-top-20px">
                     <div>
                         <Label>{this.context.t(config.label)}</Label>
                     </div>
-                    <WrappedComponent className={validation && validation.isInvalid && 'inValid'} {...{name, type, onChange, items}}/>
+                    <WrappedComponent className={validation && validation.isInvalid && 'inValid'} {...{name, type, onChange, items, value}}/>
                     {validation && <ErrorMessage>{this.context.t(validation.message)}</ErrorMessage>}
                 </div>
             )

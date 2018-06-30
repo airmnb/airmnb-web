@@ -10,3 +10,4 @@ export * from './Checkbox';
 export * from './RadioButton';
 export * from './FormButtonsGroup';
 export * from './Select';
+export * from './Textarea';

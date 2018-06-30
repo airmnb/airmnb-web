@@ -13,6 +13,7 @@ import { Profile } from '../profile/component';
 import config from '../../config';
 import { getUrlParams } from '../../services/routerService';
 import { setLanguage } from "./actions"
+import BabiesContainer from '../baby/'
 import PropTypes from 'prop-types';
 
 const Content = styled.section`
@@ -28,6 +29,10 @@ const tabs = [
         url: '/platform/profile',
         label: 'Profile'
     },
+    {
+        url: '/platform/babies',
+        label: 'Babies'
+    },
 ]
 
 const PrivateContainer = ({match, onSigoutClicked}) =>
@@ -39,6 +44,7 @@ const PrivateContainer = ({match, onSigoutClicked}) =>
             <Switch>
                 <Route path={`${match.path}/home`} component={Home} />
                 <Route path={`${match.path}/profile`} component={Profile} />
+                <Route path={`${match.path}/babies`} component={BabiesContainer} />
                 <Redirect to={`${match.path}/home`} component={Home} />
             </Switch>
         </Content>
