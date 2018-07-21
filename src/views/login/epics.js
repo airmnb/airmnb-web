@@ -2,7 +2,7 @@ import { push } from 'react-router-redux';
 import {Observable} from 'rxjs/Observable';
 import * as a from './actions';
 import { authSuccess } from '../authentication/actions'
-import { post } from '../../services/httpClient';
+import { call } from '../../services/httpClient';
 import { login } from '../../linksRel';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
@@ -21,7 +21,7 @@ const loginNativeUserEpic = (action$, store, deps) =>
     .ofType(a.LOGIN_NATIVE_USER)
     .switchMap(({payload}) => {
         const { accountName, password } = payload;
-        return post({url: `${login}?session_id=${localStorage.getItem('sessionId')}`, body: {
+        return call({url: `${login}?session_id=${localStorage.getItem('sessionId')}`, method: 'POST', body: {
             accountName,
             password,
             session_id: localStorage.getItem('sessionId')

@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
 import * as a from "./actions";
-import { post } from '../../services/httpClient';
+import { call } from '../../services/httpClient';
 import { signup } from '../../linksRel'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -16,7 +16,7 @@ const signupNativeUserEpic = (action$) =>
     .ofType(a.SIGNUP_NATIVE_USER)
     .mergeMap(action => {
         const {accountName, password} = action.payload;
-        return post({url: signup, body: {accountName, password, from: 'web'}})
+        return call({url: signup, method: 'POST', body: {accountName, password, from: 'web'}})
         .map(a.signupNativeFulfilled)
         .catch(err => Observable.of(a.signupNativeFailed(err)));
     });
@@ -33,7 +33,7 @@ const signupCheckUserEpic = (action$) =>
     .debounceTime(300)
     .distinctUntilChanged()
     .mergeMap(accountName =>{
-        return post({url: signup, body: {accountName, check: true, from: 'web'}})
+        return call({url: signup, method: 'POST', body: {accountName, check: true, from: 'web'}})
         .map(a.signupCheckUserFulfilled)
         .catch(err => Observable.of(a.signupCheckUserFailed(err.response)));
     });

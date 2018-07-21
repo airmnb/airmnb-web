@@ -22,4 +22,7 @@ export const theme = {
     grey_7: '#777',
     grey_8: '#666',
     grey_9: '#333',
+    // genders
+    male: '#d1ecea',
+    female: '#ffdfea'
 }

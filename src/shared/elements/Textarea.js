@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styled, { css } from 'styled-components';
-import { formControl } from '../hoc/index';
+import { formControl } from '../hoc';
 
 class TextareaRaw extends Component {
     constructor(props) {

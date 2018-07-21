@@ -21,7 +21,7 @@ export class Checkbox extends Component {
             checked: props.checked,
             label: props.label
         }
-        this.toggleCheckboxChange = this.toggleCheckboxChange.bind(this);        
+        this.toggleCheckboxChange = this.toggleCheckboxChange.bind(this);
     }
 
     componentWillReceiveProps(nextProp) {

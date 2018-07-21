@@ -9,4 +9,7 @@ injectGlobal`
     .align-center{
         text-align: center;
     }
+    .cursor-pointer{
+        cursor: pointer;
+    }
 `

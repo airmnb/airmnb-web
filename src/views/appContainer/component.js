@@ -13,7 +13,7 @@ import { Profile } from '../profile/component';
 import config from '../../config';
 import { getUrlParams } from '../../services/routerService';
 import { setLanguage } from "./actions"
-import BabiesContainer from '../baby/'
+import BabiesContainer from '../baby'
 import PropTypes from 'prop-types';
 
 const Content = styled.section`

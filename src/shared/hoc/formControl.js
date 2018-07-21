@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {PropTypes} from 'prop-types';
-import { Label, ErrorMessage } from '../';
+import { Label, ErrorMessage } from '..';
 
 
 export function formControl(WrappedComponent) {

@@ -14,7 +14,7 @@ export class ProfileRaw extends Component {
     constructor(props) {
         super(props)
         const { user } = this.props;
-        debugger
+
         this.state = {
             ...user,
             accountName: user.accountName || '',

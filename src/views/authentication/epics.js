@@ -1,6 +1,6 @@
 import { whoami } from "../../linksRel";
 import { authSuccess, authFail, AUTH_CHECK, AUTH_LOGOUT, authLogoutSuccess } from "./actions";
-import { get } from "../../services/httpClient";
+import { call } from "../../services/httpClient";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap'
 import { logout } from '../../linksRel';
@@ -11,7 +11,7 @@ export const authCheckEpic = (action$, store) => {
     return action$
     .ofType(AUTH_CHECK)
     .mergeMap(() =>
-        get({url: whoami})
+        call({url: whoami})
         .map(res => {
             return authSuccess(res);
         })
@@ -29,7 +29,7 @@ export const logoutEpic = (action$) =>
         localStorage.removeItem('sessionId');
     })
     .switchMap(() => {
-        const logout$ = get({url: logout})
+        const logout$ = call({url: logout})
         .map(authLogoutSuccess)
         .catch(() => Observable.of(authLogoutSuccess()));
 

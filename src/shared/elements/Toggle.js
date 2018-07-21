@@ -50,7 +50,7 @@ export const Toggle = styled(ToggleRaw)`
     border: 1px solid #000;
     transition: background .1s linear;
     >div {
-        position: relative;        
+        position: relative;
         display: inline-block;
         width: 28px;
         height: 28px;

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import styled, { css } from 'styled-components';
-import { formControl } from '../hoc/index';
+import { formControl } from '../hoc';
 
 class InputRaw extends Component {
     constructor(props) {
         super(props);
-        
+
         const {value} = this.props;
         this.state = {
             value

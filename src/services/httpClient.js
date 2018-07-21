@@ -4,14 +4,13 @@ import 'rxjs/add/observable/dom/ajax'
 import 'rxjs/add/observable/empty'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/observable/throw'
-import { store } from '../index';
+import { store } from '..';
 
-export const get = (opts) => {
-    const {headers, query} = opts;
+export const call = ({url, headers, query, body, method = 'GET'}) => {
     const token = localStorage.getItem('token');
-    let {url} = opts;
     const queryArr = [];
     let queryStr = '';
+    let defaultHeaders =  { 'Content-Type': 'application/json' };
 
     if(query) {
         for(const key in query) {
@@ -26,59 +25,20 @@ export const get = (opts) => {
         url +=`?${queryStr}`;
     }
 
-    let defaultHeaders = {};
     if(token) {
         defaultHeaders.Authorization= `bearer ${token}`;
     }
 
-    return Observable.ajax({url, method: 'get', headers: Object.assign({}, defaultHeaders, headers)})
+    return Observable.ajax({url, body, method, headers: Object.assign({}, defaultHeaders, headers)})
     .pluck('response')
     .catch(err => {
         if(err.status === 401) {
-            if(err.request.url.match(/sys\/whoami/ig)) {
+            if((!method || method === 'GET') && err.request.url.match(/sys\/whoami/ig)) {
                 localStorage.setItem('sessionId', err.response.sessionId);
                 localStorage.setItem('token', err.response.sessionToken);
             } else {
                 store.dispatch(push('/login'));
             }
-        }
-
-        return Observable.throw(err);
-    });
-}
-
-export const post = (opts) => {
-    const {url, body} = opts;
-    const token = localStorage.getItem('token');
-
-    let defaultHeaders =  { 'Content-Type': 'application/json' };
-    if(token) {
-        defaultHeaders.Authorization= `bearer ${token}`;
-    }
-    return Observable.ajax({url, body, method: 'post', headers: Object.assign({}, defaultHeaders, opts.headers)})
-    .pluck('response')
-    .catch(err => {
-        if(err.status === 401) {
-            store.dispatch(push('/login'));
-        }
-
-        return Observable.throw(err);
-    });
-}
-
-export const put = (opts) => {
-    const {url, body} = opts;
-    const token = localStorage.getItem('token');
-
-    let defaultHeaders =  { 'Content-Type': 'application/json' };
-    if(token) {
-        defaultHeaders.Authorization= `bearer ${token}`;
-    }
-    return Observable.ajax({url, body, method: 'put', headers: Object.assign({}, defaultHeaders, opts.headers)})
-    .pluck('response')
-    .catch(err => {
-        if(err.status === 401) {
-            store.dispatch(push('/login'));
         }
 
         return Observable.throw(err);

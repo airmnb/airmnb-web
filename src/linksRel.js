@@ -9,3 +9,4 @@ export const signup = constrcutUrl('sys/signup');
 export const user = constrcutUrl('api/1.0/users/{userId}');
 export const recommended = constrcutUrl('activities/recommended');
 export const babies = constrcutUrl('api/1.0/babies');
+export const images = constrcutUrl('api/1.0/images_base64');

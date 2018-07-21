@@ -13,6 +13,7 @@ export const Radio = styled(RadioRaw)`
     padding: 7px;
     border: 1px solid ${({theme} ) => theme.primary_2};
     border-radius: 15px;
+    background: white;
     line-height: 12px;
     margin-right: 5px;
     > span {

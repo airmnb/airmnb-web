@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input } from '.'
 import styled from 'styled-components';
-import { formControl } from '../hoc/index';
+import { formControl } from '../hoc';
 
 class DateRaw extends Component {
 

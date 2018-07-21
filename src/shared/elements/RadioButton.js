@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Radio, Label } from '..';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { formControl } from '../hoc/index';
+import { formControl } from '../hoc';
 
 class RadioButtonRaw extends Component {
 

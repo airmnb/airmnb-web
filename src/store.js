@@ -9,12 +9,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/dom/ajax'
 
 // reducers
-import babyReducer from './views/baby/reducer';
 import loginReducer from './views/login/reducer';
 import authReducer from './views/authentication/reducer';
 import userReducer from './views/profile/reducer';
 import signupReducer from './views/signup/reducer';
-
+import fileReducer from './views/generics/uploadFile/reducer';
+import babiesReducer from './views/baby/reducer';
 
 // epics
 import appEpics from './views/appContainer/epics';
@@ -23,6 +23,7 @@ import loginEpics from './views/login/epics';
 import signupEpics from './views/signup/epcis';
 import userEpics from './views/profile/epics';
 import babyEpics from './views/baby/epics';
+import uploadFileEpic from './views/generics/uploadFile/epics';
 
 // Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
@@ -35,6 +36,7 @@ export const configureStore = (deps = {}) => {
         signupEpics,
         appEpics,
         babyEpics,
+        uploadFileEpic,
     )
 
     // plugin redux debugging tool
@@ -55,7 +57,8 @@ export const configureStore = (deps = {}) => {
         login: loginReducer,
         user: userReducer,
         signup: signupReducer,
-        baby: babyReducer,
+        babies: babiesReducer,
+        files: fileReducer,
         i18nState
     });
 

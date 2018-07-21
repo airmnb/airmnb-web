@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { GoogleIcon, Loader } from '../index';
+import { GoogleIcon, Loader } from '..';
 
-export const ButtonRaw = ({disabled, loading, children, primary, ...passThroughProps}) => {
-  return <button {...passThroughProps} disabled={disabled || loading}>{loading? <Loader size="25" />: children}</button>
+export const ButtonRaw = ({disabled, loading, children, primary, className}) => {
+  return <button className={className} disabled={disabled || loading}>{loading? <Loader size="25" />: children}</button>
 }
 
 ButtonRaw.propTypes = {
@@ -19,7 +19,7 @@ export const Button = styled(ButtonRaw)`
   cursor: pointer;
   display: inline-block;
   border: 1px solid ${({ theme }) => theme.primary_2};
-  line-height: 31px;  
+  line-height: 31px;
   margin: 8px 0;
   outline: none;
   padding: 12px 0;
@@ -72,3 +72,42 @@ export const GoggleBtnStyled = Button.extend`
 export const GoggleBtn = ({disabled, loading, label, ...rest}) => {
   return <GoggleBtnStyled {...rest} disabled={disabled || loading} loading={loading}>{loading? <Loader size="25" />: <span><span className='logo-contianer'><GoogleIcon/></span><label>{label}</label></span>}</GoggleBtnStyled>
 }
+
+export const SquareBtn = styled.button`
+  width: 120px;
+  height: 120px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 3rem;
+  font-weight: 200;
+  padding: 0;
+  margin: 0;
+  border: none;
+  transition: all 300ms ease;
+  color: white;
+  ${({background}) => background && css`
+    background: ${background} center center;
+    background-size: cover;
+  `}
+`;
+
+
+export const BackBtn = styled.button`
+  color: blue;
+  background: white;
+  border: 1px solid blue;
+  height: 30px;
+  min-width: 50px;
+`;
+
+export const RoundBtn = styled.button`
+  color: black;
+  border: 1px solid black;
+  padding: 6px 28px;
+  border-radius: 40px;
+  font-size: .8rem;
+  cursor: pointer;
+  outline: none;
+}
+`;
