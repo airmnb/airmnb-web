@@ -4,5 +4,5 @@ const getBaby = (state, {match: {params: {babyId}}}) => state.babies.list.find(b
 
 export const makeGetBabyState = () => createSelector(
     [getBaby],
-    (baby) => ({baby})
+    (baby) => baby
 )

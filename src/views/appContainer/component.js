@@ -42,7 +42,7 @@ const PrivateContainer = ({match, onSigoutClicked}) =>
         </Header>
         <Content>
             <Switch>
-                <Route path={`${match.path}/home`} component={Home} />
+                <Route exact path={`${match.path}/home`} component={Home} />
                 <Route path={`${match.path}/profile`} component={Profile} />
                 <Route path={`${match.path}/babies`} component={BabiesContainer} />
                 <Redirect to={`${match.path}/home`} component={Home} />
@@ -63,7 +63,7 @@ const PublicContainer = () => {
         <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Redirect to={`/login${redirect?'?r='+redirect: ''}`} />
+            <Redirect to={`/login${redirect?'?r='+encodeURI(redirect): ''}`} />
         </Switch>
     </div>)
 }
@@ -125,10 +125,10 @@ const mapState = ({ auth, i18nState }) => ({
     i18nState
 })
 
-const mapDispatch = (dispatch) => ({
-    authCheck: () => dispatch(authCheck()),
-    authLogout: () => dispatch(authLogout()),
-    setLanguage: (lang) => dispatch(setLanguage(lang))
-})
+const mapDispatch = {
+    authCheck,
+    authLogout,
+    setLanguage
+}
 
 export default connect(mapState, mapDispatch)(AppContainer);

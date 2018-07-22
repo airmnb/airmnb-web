@@ -48,9 +48,9 @@ export const saveBaby = (payload) => ({
     payload
 });
 
-export const saveBabyFulfilled = (payload) => ({
+export const saveBabyFulfilled = ({baby}) => ({
     type: BABY_SAVE_FULFILED,
-    payload
+    payload: baby
 });
 
 export const saveBabyFailed = (error) => ({

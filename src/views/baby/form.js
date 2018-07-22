@@ -23,14 +23,16 @@ class BabyForm extends Component {
 
     constructor(props) {
         super(props);
+        const { baby, user: { userId } } = props;
         this.state = {
             payload: {
+                creatorId: userId,
                 nickName: '',
                 fullName: '',
                 gender: '1',
                 dob: '',
                 info: '',
-                ...props.baby
+                ...baby
             },
             validation: {}
         };
@@ -73,23 +75,10 @@ class BabyForm extends Component {
         this.setState({ validation: this.validator.validate(this.state.payload) }, cb)
     }
 
-    get iconUrl() {
-        const { payload: { gender, avatarImageId } } = this.state;
-        if (avatarImageId) {
-            return `https://www.airmnb.com/public/images/${avatarImageId}`;
-        }
-        else if (gender === '1') {
-            return '/assets/male.png'
-        } else if (gender === '2') {
-            return '/assets/female.png'
-        } else {
-            return
-        }
-    }
-
     render() {
         const { validation, payload, } = this.state;
         const { match, baby, deleteBaby } = this.props;
+
         if (!baby && match.params.babyId) {
             return <Loader size='25' />
         } else {
@@ -124,6 +113,7 @@ class BabyForm extends Component {
                                     disablePrimary={false}
                                     secondaryLabel='Cancel'
                                     disableSecondary={false}
+                                    loadingPrimary={baby && baby.saveBabyInProgress}
                                     onSecondaryClick={this.handleCancelForm}
                                 />
                             </form>
@@ -149,7 +139,14 @@ class BabyForm extends Component {
 
 const makeMapStateToProps = () => {
     const getBabyState = makeGetBabyState();
-    return getBabyState
+    const mapStateToProps = (state, props) => {
+        const { auth: { user }} = state;
+        return {
+          baby: getBabyState(state, props),
+          user
+        }
+      }
+    return mapStateToProps
 }
 
 const mapDispatch = {

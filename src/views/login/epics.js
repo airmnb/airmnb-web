@@ -31,10 +31,12 @@ const loginNativeUserEpic = (action$, store, deps) =>
     })
 
 const loginNativeUserFulfilledEpic = (action$) =>{
-    const redirect = getUrlParams(window.location.href)['r'] || '/platform/home';
     return action$
     .ofType(a.LOGIN_NATIVE_USER_FULFILLED)
-    .switchMap(({payload}) => of(authSuccess(payload),push(redirect)))
+    .switchMap(({payload}) => {
+        const redirect = getUrlParams(window.location.href)['r'] || '/platform/home';
+        return of(authSuccess(payload),push(redirect))
+    })
 }
 
 const loginGoogleUserEpic = (action$) => {
@@ -42,7 +44,7 @@ const loginGoogleUserEpic = (action$) => {
     .ofType(a.LOGIN_GOOGLE_USER)
     .do(() => {
         const redirect = getUrlParams(window.location.href)['r'];
-        window.location = `${login}?use=google&session_id=${localStorage.getItem('sessionId')}${redirect? `&r=${redirect}`:''}`
+        window.location = `${login}?use=google&session_id=${localStorage.getItem('sessionId')}${redirect? `&r=${encodeURI(redirect)}`:''}`
     })
     .ignoreElements()
 

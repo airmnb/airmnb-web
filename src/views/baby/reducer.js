@@ -4,8 +4,17 @@ const initState = {
     list: []
 }
 
-const findIndex = (list, id) => list.findIndex(b => b.babyId === id)
-
+const updateBabies = (list, id, payload) => {
+    const idx = list.findIndex(b => b.babyId === id);
+    return [
+        ...list.slice(0, idx),
+        {
+            ...list[idx],
+            ...payload
+        },
+        ...list.slice(idx + 1),
+    ]
+}
 export default (state = initState, action) => {
     switch(action.type) {
         case a.BABIES_FETCH:
@@ -43,41 +52,44 @@ export default (state = initState, action) => {
         case a.BABY_SAVE:
             return {
                 ...state,
-                saveBabyInProgress: true
+                list: updateBabies(state.list, action.payload.babyId, {
+                    saveBabyInProgress: true
+                })
             }
         case a.BABY_SAVE_FULFILED:
             return {
                 ...state,
-                saveBabyInProgress: false
+                list: updateBabies(state.list, action.payload.babyId, {
+                    saveBabyInProgress: false
+                })
             }
         case a.BABY_SAVE_FAILED:
             return {
                 ...state,
-                saveBabyInProgress: false
+                list: updateBabies(state.list, action.payload.babyId, {
+                    saveBabyInProgress: false
+                })
             }
         case a.BABY_DELETE:
-            const index = findIndex(state.list, action.babyId);
             return {
                 ...state,
-                list: [
-                    ...state.list.slice(0, index),
-                    {
-                        ...state.list[index],
-                        deleteInProgress: true
-                    },
-                    ...state.list.slice(index + 1),
-                ]
-
+                list: updateBabies(state.list, action.babyId, {
+                    deleteInProgress: true
+                })
             }
         case a.BABY_DELETE_FULFILED:
             return {
                 ...state,
-                deleteBabyInProgress: false
+                list: updateBabies(state.list, action.babyId, {
+                    deleteInProgress: false
+                })
             }
         case a.BABY_DELETE_FAILED:
             return {
                 ...state,
-                deleteBabyInProgress: false
+                list: updateBabies(state.list, action.babyId, {
+                    deleteInProgress: true
+                })
             }
         default:
             return state;

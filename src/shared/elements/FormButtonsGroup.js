@@ -10,12 +10,14 @@ const FormButtonsGroupRaw = (props) => {
         secondaryLabel,
         disableSecondary,
         onPrimaryClick,
-        onSecondaryClick
+        onSecondaryClick,
+        loadingPrimary,
+        loadingSecondary
     } = props;
     return (
         <div className={className}>
-            {primaryLabel && <Button type="submit" onClick={onPrimaryClick} disabled={disablePrimary} primary>{primaryLabel}</Button>}
-            {secondaryLabel && <Button type="button" onClick={onSecondaryClick}  disabled={disableSecondary}>{secondaryLabel}</Button>}
+            {primaryLabel && <Button type="submit" onClick={onPrimaryClick} loading={loadingPrimary} disabled={disablePrimary} primary>{primaryLabel}</Button>}
+            {secondaryLabel && <Button type="button" onClick={onSecondaryClick} loading={loadingSecondary}  disabled={disableSecondary}>{secondaryLabel}</Button>}
         </div>
     )
 }

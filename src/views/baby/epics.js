@@ -1,8 +1,10 @@
 import { combineEpics } from "redux-observable";
+import { push } from 'react-router-redux';
 import * as a from "./actions";
 import { call } from "../../services/httpClient";
 import { babies } from "../../linksRel";
 import { of } from 'rxjs/observable/of';
+import { merge } from 'rxjs/observable/merge';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/map';
@@ -37,7 +39,12 @@ const saveBabyEpic = (action$) =>
         const { babyId } = payload;
         const url = babyId? `${babies}/${payload.babyId}` : `${babies}`
         return call({url, method: payload.babyId? 'PUT':'POST', body: payload})
-        .map(a.saveBabyFulfilled)
+        .switchMap((res) =>
+            merge(
+                of(a.saveBabyFulfilled(res)),
+                of(push('/platform/babies'))
+            )
+        )
         .catch((err) => of(a.saveBabyFailed(err)))
     })
 
