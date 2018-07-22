@@ -52,8 +52,7 @@ const PrivateContainer = ({match, onSigoutClicked}) =>
 
 const PublicContainer = () => {
     let redirect = '';
-
-    if(!window.location.search.match(/r=/ig) && !config.publicUrls.includes(config.publicUrls)) {
+    if(!window.location.search.match(/r=/ig) && !config.publicUrls.includes(window.location.pathname)) {
         redirect = window.location.pathname;
     }
     return (<div>
