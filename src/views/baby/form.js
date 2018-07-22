@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import { FormValidator } from '../../services/formValidator';
 import { Title, InputControl, FormButtonsGroup, RadioButtonGroupControl, DateControl, TextareaControl, Loader, RoundBtn, DeleteBtn } from '../../shared';
 import UploadFile from '../generics/uploadFile'
-import { saveBaby, fetchBaby } from './actions';
+import { saveBaby, fetchBaby, deleteBaby } from './actions';
 import { gender as genderEnum } from '../../enums';
 import c from './config';
 import PropTypes from 'prop-types';
@@ -27,7 +27,7 @@ class BabyForm extends Component {
             payload: {
                 nickName: '',
                 fullName: '',
-                gender: 1,
+                gender: '1',
                 dob: '',
                 info: '',
                 ...props.baby
@@ -89,18 +89,18 @@ class BabyForm extends Component {
 
     render() {
         const { validation, payload, } = this.state;
-        const { match, baby } = this.props;
+        const { match, baby, deleteBaby } = this.props;
         if (!baby && match.params.babyId) {
             return <Loader size='25' />
         } else {
             return (
                 <div>
-                    {/* <button onClick={goBack}>back to babies</button> */}
                     <Header>
-                        <Title>{`${payload.nickName}`}</Title>
+                        <Title>{`${payload.nickName || 'Add a new Baby'}`}</Title>
                         <ButtonGroup>
                             {payload.babyId && <DeleteBtn
                                 confirmMessage={`Are you sure you want to delete ${payload.nickName}'s account?`}
+                                onConfirmClick={deleteBaby.bind(this, baby.babyId)}
                             />}
                             <RoundBtn onClick={this.handleCancelForm}>Cancel</RoundBtn>
                         </ButtonGroup>
@@ -155,6 +155,7 @@ const makeMapStateToProps = () => {
 const mapDispatch = {
     saveBaby,
     fetchBaby,
+    deleteBaby,
     push
 };
 

@@ -3,8 +3,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { GoogleIcon, Loader } from '..';
 
-export const ButtonRaw = ({disabled, loading, children, primary, className}) => {
-  return <button className={className} disabled={disabled || loading}>{loading? <Loader size="25" />: children}</button>
+export const ButtonRaw = ({disabled, loading, children, onClick, className}) => {
+  return <button className={className} onClick={onClick} disabled={disabled || loading}>{loading? <Loader size="25" />: children}</button>
 }
 
 ButtonRaw.propTypes = {
@@ -69,11 +69,12 @@ export const GoggleBtnStyled = Button.extend`
   }
 `
 
-export const GoggleBtn = ({disabled, loading, label, ...rest}) => {
-  return <GoggleBtnStyled {...rest} disabled={disabled || loading} loading={loading}>{loading? <Loader size="25" />: <span><span className='logo-contianer'><GoogleIcon/></span><label>{label}</label></span>}</GoggleBtnStyled>
+export const GoggleBtn = ({disabled, loading, label, onClick, ...rest}) => {
+  return <GoggleBtnStyled {...rest} onClick={onClick} disabled={disabled || loading} loading={loading}>{loading? <Loader size="25" />: <span><span className='logo-contianer'><GoogleIcon/></span><label>{label}</label></span>}</GoggleBtnStyled>
 }
 
-export const SquareBtn = styled.button`
+export const SquareBtn = Button.extend`
+  cursor: pointer;
   width: 120px;
   height: 120px;
   line-height: 20px;
@@ -83,13 +84,6 @@ export const SquareBtn = styled.button`
   font-weight: 200;
   padding: 0;
   margin: 0;
-  border: none;
-  transition: all 300ms ease;
-  color: white;
-  ${({background}) => background && css`
-    background: ${background} center center;
-    background-size: cover;
-  `}
 `;
 
 

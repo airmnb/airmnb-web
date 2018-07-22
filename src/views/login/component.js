@@ -41,6 +41,7 @@ class Login extends Component {
     render() {
         const { login } = this.props;
         const { validation } = this.state;
+        debugger
         return (
             <Container>
                 <Title>{this.context.t('Log In')}</Title>
@@ -53,7 +54,7 @@ class Login extends Component {
                     <span style={{display: 'inline-block', width: '40px', background: 'white', zIndex: 1, position: 'relative', textAlign: 'center' }}>{this.context.t('or')}</span>
                     <div className="separator"></div>
                 </div>
-                <GoggleBtn label={this.context.t('Log In With Google')} loading={login.googleLoading} onClick={this.props.loginGoogleUser}/>
+                <GoggleBtn label={this.context.t('Log In With Google')} loading={login.googleLoading} onClick={() => {debugger; this.props.loginGoogleUser()}}/>
                 <div className="align-center margin-top-20px">
                     <Muted>{this.context.t('New Customer?')}</Muted>
                     <br /><Anchor to="/signup">{this.context.t('Sign Up now')}</Anchor>
@@ -80,9 +81,9 @@ Login.contextTypes = {
 
 const mapState = ({ login, user }) => ({ login, user })
 
-const mapDispatch = (dispatch) => ({
-    loginNativeUser: (payload) => dispatch(loginNativeUser(payload)),
-    loginGoogleUser: () => dispatch(loginGoogleUser())
-});
+const mapDispatch = {
+    loginNativeUser,
+    loginGoogleUser
+};
 
 export default connect(mapState, mapDispatch)(Login);

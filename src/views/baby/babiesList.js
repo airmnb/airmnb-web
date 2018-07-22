@@ -1,9 +1,9 @@
 import { push } from 'react-router-redux';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchBabies, deleteBaby } from './actions';
+import { fetchBabies } from './actions';
 import { Link } from 'react-router-dom';
-import { H1, Loader} from '../../shared';
+import { H1, Loader, SquareBtn} from '../../shared';
 import { BabyIcon } from './babyIcon';
 import { Baby } from './babiesList.styles'
 
@@ -26,11 +26,10 @@ class BabiesList extends Component {
                 fetchBabiesInProgress && <Loader size='25' />
             }
             {!fetchBabiesInProgress && <div>
-                <Link to={`${match.path}/register`}>
-                </Link>
+                <Baby><Link to={`${match.path}/register`}><SquareBtn>+</SquareBtn></Link></Baby>
                 {
                     list && list.map(({babyId, gender, nickName, avatarImageId, deleteInProgress}, id) => {
-                        return (<Baby><Link to={`${match.path}/${babyId}`}><BabyIcon avatarImageId={avatarImageId} gender={gender}/></Link></Baby>)
+                        return (<Baby key={babyId}><Link to={`${match.path}/${babyId}`}><BabyIcon avatarImageId={avatarImageId} gender={gender}/></Link></Baby>)
                         })
                 }
             </div>}
@@ -44,7 +43,6 @@ const mapState = ({ babies }) => ({
 
 const mapDispatch = {
     fetchBabies,
-    deleteBaby,
     push
 }
 
